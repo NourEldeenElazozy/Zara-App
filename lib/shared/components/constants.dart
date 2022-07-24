@@ -6,6 +6,7 @@ import 'package:salla/shared/network/local/cache_helper.dart';
 
 AppLanguageModel appLang(context) => AppCubit.get(context).languageModel;
 
+dynamic token = '';
 String appLanguage = 'ar';
 
 String userToken = '';
