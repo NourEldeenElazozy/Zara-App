@@ -36,8 +36,7 @@ class LoginScreen extends StatelessWidget {
                       context,
                       HomeLayout(),
                     );
-                    CacheHelper2.Savedataa(
-                        key: 'token', value: state.userModel.data.token);
+
               }
 
 

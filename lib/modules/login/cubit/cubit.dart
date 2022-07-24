@@ -6,6 +6,7 @@ import 'package:salla/models/user/user_model.dart';
 import 'package:salla/modules/login/cubit/states.dart';
 import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/network/repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginCubit extends Cubit<LoginStates>
 {
@@ -29,15 +30,19 @@ class LoginCubit extends Cubit<LoginStates>
       password: password,
     )
         .then((value)
-    {
+    async {
 
       userModel = UserModel.fromJson(value.data);
 
       if(userModel.status)
       {
         emit(LoginSuccessState(userModel));
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('username', username);
+      userToken = prefs.getString('username');
+        print(userToken);
 
-        print(value.data);
+
 
       } else
       {

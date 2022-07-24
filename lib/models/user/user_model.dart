@@ -25,9 +25,9 @@ class UserModel {
 
 class Data {
   int id;
-  String name;
+  String username;
   String email;
-  String phone;
+  String phoneNumber;
   String image;
   int points;
   int credit;
@@ -35,9 +35,9 @@ class Data {
 
   Data(
       {this.id,
-        this.name,
+        this.username,
         this.email,
-        this.phone,
+        this.phoneNumber,
         this.image,
         this.points,
         this.credit,
@@ -45,9 +45,9 @@ class Data {
 
   Data.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    name = json['name'];
+    username = json['username'];
     email = json['email'];
-    phone = json['phone'];
+    phoneNumber = json['phoneNumber'];
     image = json['image'];
     points = json['points'];
     credit = json['credit'];
@@ -57,9 +57,9 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['name'] = this.name;
+    data['username'] = this.username;
     data['email'] = this.email;
-    data['phone'] = this.phone;
+    data['phoneNumber'] = this.phoneNumber;
     data['image'] = this.image;
     data['points'] = this.points;
     data['credit'] = this.credit;

@@ -68,7 +68,7 @@ class AppCubit extends Cubit<AppStates>
     CartScreen(),
     SettingsScreen(),
   ];
-
+  int categoryId=0;
   int currentIndex = 0;
 
   void changeBottomIndex(int index) {
@@ -79,6 +79,7 @@ class AppCubit extends Cubit<AppStates>
   HomeModel homeModel;
   HomeModel homeModel2;
   Map<int, bool> favourites = {};
+  Map<int, int> categories = {};
   Map<int, bool> cart = {};
   int cartProductsNumber = 0;
 
@@ -90,12 +91,19 @@ class AppCubit extends Cubit<AppStates>
         .getHomeData(
       token: userToken,
     )
+
         .then((value) {
+
       homeModel = HomeModel.fromJson(value.data);
 
       homeModel.products.forEach((element)
       {
-
+        print('categoryId');
+print(categoryId);
+        if(element.categoryId==categoryId)
+        categories.addAll({
+          element.id: element.categoryId
+        });
 
         favourites.addAll({
           element.id: element.infavorites
@@ -109,7 +117,9 @@ class AppCubit extends Cubit<AppStates>
           cartProductsNumber++;
         }
       });
-
+      print('aaaaaaaaaa');
+      print(categories);
+      print('aaaaaaaaaaaa');
       emit(AppSuccessState(homeModel));
 
       print(value.data.toString());

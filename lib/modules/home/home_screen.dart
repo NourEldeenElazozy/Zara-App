@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/categories/categories.dart';
 import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/models/home/home_model.dart';
+import 'package:salla/modules/login/login_screen.dart';
 import 'package:salla/modules/single_category/single_category_screen.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/app_cubit/states.dart';
@@ -15,6 +16,7 @@ import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/styles/colors.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../item_screen.dart';
 
@@ -28,8 +30,9 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         var model = AppCubit.get(context).homeModel;
         var categories = AppCubit.get(context).categoriesModel2;
-        List<dynamic> idProd = [];
-        var  categoriesid ='';
+
+
+
 
 
         return ConditionalBuilder(
@@ -59,7 +62,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: ListView.separated(
                     itemBuilder: (context, index) =>
-                        categoryItem(categories.categories[index], context,555),
+                        categoryItem(categories.categories[index], context),
                     separatorBuilder: (context, index) => SizedBox(
                       width: 10.0,
                     ),
@@ -114,10 +117,13 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget categoryItem(Categories model, context ,categoriesid ) => InkWell(
+  Widget categoryItem(Categories model, context  ) => InkWell(
     onTap: (){
-      categoriesid=555;
-      print(categoriesid);
+      AppCubit.get(context).categoryId=model.id;
+
+      print(model.name);
+      print(AppCubit.get(context).categoryId);
+      AppCubit.get(context).getHomeData();
       navigateTo(context, SingleCategoryScreen(model.id, model.name),);
     },
     child: Container(
@@ -204,10 +210,21 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                             FloatingActionButton(
-                              onPressed: () {
-                                AppCubit.get(context).changeCart(
-                                  id: model.id,
-                                );
+                              onPressed: () async {
+                                SharedPreferences prefs = await SharedPreferences.getInstance();
+                                var username = prefs.getString('username');
+                                if( username != null){
+                                  AppCubit.get(context).changeCart(
+                                    id: model.id,
+                                  );
+                                }else{
+                                  showToast(
+                                    text: 'يرجي تسجيل الدخول قبل الأستمرار',
+                                    color: ToastColors.ERROR,
+                                  );
+                                  navigateTo(context, LoginScreen());
+                                }
+
                               },
                               heroTag : '3',
                               backgroundColor: AppCubit.get(context).cart[model.id]

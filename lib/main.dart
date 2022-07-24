@@ -8,6 +8,7 @@ import 'package:salla/shared/app_cubit/states.dart';
 import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/di/di.dart';
 import 'package:salla/shared/network/remote/dio_helper.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'layout/home_layout.dart';
 
@@ -18,24 +19,26 @@ void main() async
   await init();
 
   appLanguage = await getAppLanguage();
-
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  var username = prefs.getString('username');
+print(username);
   userToken = await getUserToken();
 
   String translation = await getTranslationFile(appLanguage);
 
   Widget start;
 
-  if(appLanguage != null && userToken != null)
+  if(appLanguage != null && username != null)
   {
     start = HomeLayout();
-  } else if(appLanguage != null && userToken == null)
+  } else if(appLanguage != null && username == null)
   {
-    start = LoginScreen();
+    start = HomeLayout();
   } else
   {
     start = SelectLanguageScreen();
   }
-
+ /* start = HomeLayout();*/
   runApp(MyApp(
     translationFile: translation,
     code: appLanguage,
@@ -45,6 +48,7 @@ void main() async
 
 class MyApp extends StatelessWidget
 {
+
   final String translationFile;
   final String code;
   final Widget start;

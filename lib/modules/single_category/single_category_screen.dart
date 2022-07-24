@@ -28,7 +28,9 @@ class SingleCategoryScreen extends StatelessWidget
         builder: (context, state)
         {
           var model = SingleCategoryCubit.get(context).singleCategoryModel;
-
+          print('SingleCategoryScreen');
+          print(AppCubit.get(context).categoryId);
+          print(AppCubit.get(context).categories);
           return Scaffold(
             appBar: AppBar(
               title: Text(
