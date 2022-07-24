@@ -1,4 +1,4 @@
-# softagi
+# Zara App
 
 # Splash
 
