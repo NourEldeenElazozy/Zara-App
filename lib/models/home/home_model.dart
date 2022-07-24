@@ -1,128 +1,99 @@
 class HomeModel {
-  bool status;
-  String message;
-  Data data;
-
-  HomeModel({this.status, this.message, this.data});
-
-  HomeModel.fromJson(Map<String, dynamic> json)
-  {
-    status = json['status'];
-    message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
-  }
-}
-
-class Data {
-  List<Banners> banners;
   List<Products> products;
-  String ad;
 
-  Data({this.banners, this.products, this.ad});
+  HomeModel({this.products});
 
-  Data.fromJson(Map<String, dynamic> json) {
-    if (json['banners'] != null) {
-      banners = [];
-      json['banners'].forEach((v) {
-        banners.add(Banners.fromJson(v));
-      });
-    }
+  HomeModel.fromJson(Map<String, dynamic> json) {
     if (json['products'] != null) {
-      products = List<Products>();
+
+      products = <Products>[];
+
       json['products'].forEach((v) {
-        products.add(Products.fromJson(v));
+        products.add(new Products.fromJson(v));
       });
     }
-    ad = json['ad'];
+
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    if (this.banners != null) {
-      data['banners'] = this.banners.map((v) => v.toJson()).toList();
-    }
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.products != null) {
       data['products'] = this.products.map((v) => v.toJson()).toList();
     }
-    data['ad'] = this.ad;
-    return data;
-  }
-}
 
-class Banners {
-  int id;
-  String image;
-  Null category;
-  Null product;
-
-  Banners({this.id, this.image, this.category, this.product});
-
-  Banners.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    image = json['image'];
-    category = json['category'];
-    product = json['product'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
-    data['id'] = this.id;
-    data['image'] = this.image;
-    data['category'] = this.category;
-    data['product'] = this.product;
     return data;
   }
 }
 
 class Products {
   int id;
+  String name;
+  bool inCart;
+  bool infavorites;
+  String imageUrl;
   dynamic price;
   dynamic oldPrice;
-  int discount;
-  String image;
-  String name;
+  int quantity;
   String description;
-  List<String> images;
-  bool inFavorites;
-  bool inCart;
+  int discount;
+  int categoryId;
+  String category;
+  String favoriteId;
+  String favorite;
+  String  images;
 
   Products(
       {this.id,
+        this.name,
+        this.inCart,
+        this.infavorites,
+        this.imageUrl,
         this.price,
         this.oldPrice,
-        this.discount,
-        this.image,
-        this.name,
+        this.quantity,
         this.description,
-        this.images,
-        this.inFavorites,
-        this.inCart});
+        this.discount,
+        this.categoryId,
+        this.category,
+        this.favoriteId,
+        this.favorite,
+        this.images});
 
   Products.fromJson(Map<String, dynamic> json) {
     id = json['id'];
-    price = json['price'];
-    oldPrice = json['old_price'];
-    discount = json['discount'];
-    image = json['image'];
     name = json['name'];
+    inCart = json['inCart'];
+    infavorites = json['infavorites'];
+    imageUrl = json['imageUrl'];
+    price = json['price'];
+    oldPrice = json['oldPrice'];
+    quantity = json['quantity'];
     description = json['description'];
-    images = json['images'].cast<String>();
-    inFavorites = json['in_favorites'];
-    inCart = json['in_cart'];
+    discount = json['discount'];
+    categoryId = json['categoryId'];
+    category = json['category'];
+    favoriteId = json['favoriteId'];
+    favorite = json['favorite'];
+    images = json['images'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = Map<String, dynamic>();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
     data['id'] = this.id;
-    data['price'] = this.price;
-    data['old_price'] = this.oldPrice;
-    data['discount'] = this.discount;
-    data['image'] = this.image;
     data['name'] = this.name;
+    data['inCart'] = this.inCart;
+    data['infavorites'] = this.infavorites;
+    data['imageUrl'] = this.imageUrl;
+    data['price'] = this.price;
+    data['oldPrice'] = this.oldPrice;
+    data['quantity'] = this.quantity;
     data['description'] = this.description;
+    data['discount'] = this.discount;
+    data['categoryId'] = this.categoryId;
+    data['category'] = this.category;
+    data['favoriteId'] = this.favoriteId;
+    data['favorite'] = this.favorite;
     data['images'] = this.images;
-    data['in_favorites'] = this.inFavorites;
-    data['in_cart'] = this.inCart;
     return data;
   }
 }

@@ -4,46 +4,56 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/user/user_model.dart';
 import 'package:salla/modules/login/cubit/states.dart';
+import 'package:salla/modules/register/cubit/states.dart';
 import 'package:salla/shared/network/repository.dart';
 
-class LoginCubit extends Cubit<LoginStates>
+class RegisterCubit extends Cubit<RegisterStates>
 {
   final Repository repository;
 
-  LoginCubit(this.repository) : super(LoginInitialState());
+  RegisterCubit(this.repository) : super(RegisterInitialState());
 
-  static LoginCubit get(context) => BlocProvider.of(context);
+  static RegisterCubit get(context) => BlocProvider.of(context);
 
   UserModel userModel;
 
-  userLogin({
+  Register({
     @required String username,
     @required String password,
+    @required String confirmPassword,
+    @required String phoneNumber,
   })
   {
 
     repository
-        .userLogin(
+        .userRegister(
       username: username,
       password: password,
+      confirmPassword: confirmPassword,
+      phoneNumber: phoneNumber,
     )
         .then((value)
-    {
 
+    {
+print(value.data);
       userModel = UserModel.fromJson(value.data);
 
       if(userModel.status)
       {
-        emit(LoginSuccessState(userModel));
+        emit(RegisterSuccessState(userModel));
         print(value.data);
       } else
       {
-        emit(LoginErrorState(userModel.message));
+        emit(RegisterErrorState(userModel.message));
+
       }
     }).catchError((error)
     {
       print(error.toString());
-      emit(LoginErrorState(error.toString()));
+
+      emit(RegisterErrorState(error.toString()));
+
+
     });
   }
 }

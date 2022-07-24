@@ -110,4 +110,5 @@ class ProductData {
     data['image'] = this.image;
     return data;
   }
+
 }

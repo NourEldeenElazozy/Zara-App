@@ -11,6 +11,8 @@ class LoginSuccessState extends LoginStates
   final UserModel userModel;
 
   LoginSuccessState(this.userModel);
+
+
 }
 
 class LoginErrorState extends LoginStates

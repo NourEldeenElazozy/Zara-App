@@ -3,11 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/layout/home_layout.dart';
 import 'package:salla/modules/login/cubit/cubit.dart';
 import 'package:salla/modules/login/cubit/states.dart';
+import 'package:salla/modules/register/register_screen.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/components/components.dart';
 import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/di/di.dart';
 import 'package:salla/shared/network/local/cache_helper.dart';
+import 'package:salla/shared/network/local/cache_helper2.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
 
@@ -28,26 +30,24 @@ class LoginScreen extends StatelessWidget {
           child: BlocConsumer<LoginCubit, LoginStates>(
             listener: (context, state) {
               if (state is LoginSuccessState) {
-                di<CacheHelper>()
-                    .put('userData', state.userModel)
-                    .then((value) {
-                  di<CacheHelper>()
-                      .put('userToken', state.userModel.data.token)
-                      .then((value) {
+
+
                     navigateAndFinish(
                       context,
                       HomeLayout(),
                     );
-                  }).catchError((error) {});
-                }).catchError((error) {});
+                    CacheHelper2.Savedataa(
+                        key: 'token', value: state.userModel.data.token);
               }
+
 
               if (state is LoginErrorState) {
                 showToast(
-                  text: state.error,
+                  text: 'خطاء في اسم المستخدم او كلمة المرور',
                   color: ToastColors.ERROR,
                 );
               }
+
             },
             builder: (context, state) {
               return Form(
@@ -83,9 +83,9 @@ class LoginScreen extends StatelessWidget {
                             },
                             decoration: InputDecoration(
                               prefixIcon: Icon(
-                                IconBroken.Message,
+                                IconBroken.User,
                               ),
-                              labelText: appLang(context).email,
+                              labelText: appLang(context).user_name,
                               border: OutlineInputBorder(),
                             ),
                           ),
@@ -117,10 +117,12 @@ class LoginScreen extends StatelessWidget {
                           defaultButton(
                             function: () {
                               if (formKey.currentState.validate()) {
+
                                 LoginCubit.get(context).userLogin(
-                                  email: emailController.text,
+                                  username: emailController.text,
                                   password: passwordController.text,
                                 );
+
                               }
                             },
                             text: appLang(context).login,
@@ -138,7 +140,9 @@ class LoginScreen extends StatelessWidget {
                                 width: 5.0,
                               ),
                               TextButton(
-                                onPressed: () {},
+                                onPressed: () {
+                                  Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context) => RegisterScreen()));
+                                },
                                 child: Text(
                                   appLang(context).registerNow,
                                 ),

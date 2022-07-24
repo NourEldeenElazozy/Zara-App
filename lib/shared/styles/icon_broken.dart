@@ -11,6 +11,7 @@ class IconBroken {
   IconBroken._();
 
   static const String _fontFamily = 'IconBroken';
+  static const IconData phone = IconData(0xe04d, fontFamily: 'MaterialIcons');
 
   static const IconData User = IconData(0xe900, fontFamily: _fontFamily);
   static const IconData User1 = IconData(0xe901, fontFamily: _fontFamily);

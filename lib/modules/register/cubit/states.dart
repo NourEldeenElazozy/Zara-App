@@ -1,21 +1,21 @@
 import 'package:salla/models/user/user_model.dart';
 
-abstract class LoginStates {}
+abstract class RegisterStates {}
 
-class LoginInitialState extends LoginStates {}
+class RegisterInitialState extends RegisterStates {}
 
-class LoginLoadingState extends LoginStates {}
+class RegisterLoadingState extends RegisterStates {}
 
-class LoginSuccessState extends LoginStates
+class RegisterSuccessState extends RegisterStates
 {
   final UserModel userModel;
 
-  LoginSuccessState(this.userModel);
+  RegisterSuccessState(this.userModel);
 }
 
-class LoginErrorState extends LoginStates
+class RegisterErrorState extends RegisterStates
 {
   final String error;
 
-  LoginErrorState(this.error);
+  RegisterErrorState(this.error);
 }

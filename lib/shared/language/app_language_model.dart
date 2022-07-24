@@ -9,7 +9,9 @@ class AppLanguageModel
   String loginTitle;
   String loginSubTitle;
   String email;
+  String phone;
   String password;
+  String confirmPassword;
   String login;
   String donNotHave;
   String registerNow;
@@ -20,6 +22,7 @@ class AppLanguageModel
   String cart;
   String settings;
   String salla;
+  String user_name;
   String search;
   String discount;
   String currency;
@@ -28,6 +31,7 @@ class AppLanguageModel
   String see;
   String total;
   String proceed;
+
 
   AppLanguageModel({
     this.title1,
@@ -58,6 +62,9 @@ class AppLanguageModel
     this.see,
     this.total,
     this.proceed,
+    this.phone,
+    this.user_name,
+    this.confirmPassword,
   });
 
   AppLanguageModel.fromJson(Map<String, dynamic> json)
@@ -71,7 +78,10 @@ class AppLanguageModel
     loginTitle = json['loginTitle'];
     loginSubTitle = json['loginSubTitle'];
     email = json['email'];
+    phone = json['phone'];
     password = json['password'];
+    confirmPassword = json['confirmPassword'];
+
     login = json['login'];
     donNotHave = json['donNotHave'];
     registerNow = json['registerNow'];
@@ -90,6 +100,8 @@ class AppLanguageModel
     see = json['see'];
     total = json['total'];
     proceed = json['proceed'];
+
+    user_name = json['user_name'];
   }
 
   /*Map<String, dynamic> toJson() {

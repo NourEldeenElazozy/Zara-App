@@ -6,7 +6,7 @@ import 'package:salla/shared/network/local/cache_helper.dart';
 
 AppLanguageModel appLang(context) => AppCubit.get(context).languageModel;
 
-String appLanguage = '';
+String appLanguage = 'ar';
 
 String userToken = '';
 
@@ -17,7 +17,8 @@ Future<String> getAppLanguage() async
 
 Future<String> getUserToken() async
 {
-  return await di<CacheHelper>().get('userToken');
+  return await di<CacheHelper>().get('token');
+
 }
 
 Future<bool> setAppLanguageToShared(String code) async
@@ -29,7 +30,7 @@ Future<bool> setAppLanguageToShared(String code) async
 Future<String> getTranslationFile(String appLanguage) async
 {
   return await rootBundle
-      .loadString('assets/translation/${appLanguage ?? 'en'}.json');
+      .loadString('assets/translation/${appLanguage ?? 'ar'}.json');
 }
 
 void printFullText(String text)

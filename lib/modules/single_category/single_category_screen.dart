@@ -40,7 +40,7 @@ class SingleCategoryScreen extends StatelessWidget
               builder: (context) => ListView.separated(
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) => singleProductItem(
-                  model: model.data.data[index],
+                  model: model.data.products[index],
                   context: context,
                   index: index,
                 ),
@@ -49,7 +49,7 @@ class SingleCategoryScreen extends StatelessWidget
                   height: 1.0,
                   color: Colors.grey[300],
                 ),
-                itemCount: model.data.data.length,
+                itemCount: model.data.products.length,
               ),
               fallback: (context) => Center(
                 child: CircularProgressIndicator(),
@@ -85,7 +85,7 @@ class SingleCategoryScreen extends StatelessWidget
                     ),
                     image: DecorationImage(
                       image: NetworkImage(
-                        '${model.image}',
+                        '${model.imageUrl}',
                       ),
                       fit: BoxFit.cover,
                     ),
@@ -190,7 +190,7 @@ class SingleCategoryScreen extends StatelessWidget
                                   ],
                                 ),
                               ),
-                              FloatingActionButton(
+                              /*FloatingActionButton(
                                 onPressed: ()
                                 {
                                   AppCubit.get(context).changeFav(
@@ -221,7 +221,7 @@ class SingleCategoryScreen extends StatelessWidget
                                 child: Icon(
                                   IconBroken.Buy,
                                 ),
-                              ),
+                              ),*/
                             ],
                           );
                         },

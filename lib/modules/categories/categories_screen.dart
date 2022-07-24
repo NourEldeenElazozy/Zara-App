@@ -2,6 +2,7 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/categories/categories.dart';
+import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/modules/single_category/single_category_screen.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/app_cubit/states.dart';
@@ -11,23 +12,26 @@ class CategoriesScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context)
   {
+
+
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state)
       {
-        var categories = AppCubit.get(context).categoriesModel;
+        var categories = AppCubit.get(context).categoriesModel2;
+
 
         return ConditionalBuilder(
           condition: categories != null,
           builder: (context) => ListView.separated(
             physics: BouncingScrollPhysics(),
-            itemBuilder: (context, index) => categoryItem(context, categories.data.data[index]),
+            itemBuilder: (context, index) => categoryItem(context, categories.categories[index]),
             separatorBuilder: (context, index) => Container(
               width: double.infinity,
               height: 1.0,
               color: Colors.grey[300],
             ),
-            itemCount: categories.data.data.length,
+            itemCount: categories.categories.length,
           ),
           fallback: (context) => Center(
             child: CircularProgressIndicator(),
@@ -37,8 +41,9 @@ class CategoriesScreen extends StatelessWidget {
     );
   }
 
-  Widget categoryItem(context, ProductData model) => InkWell(
+  Widget categoryItem(context, Categories model ) => InkWell(
     onTap: (){
+
       navigateTo(context, SingleCategoryScreen(model.id, model.name),);
     },
     child: Padding(
@@ -54,7 +59,7 @@ class CategoriesScreen extends StatelessWidget {
               ),
               image: DecorationImage(
                 image: NetworkImage(
-                    '${model.image}',),
+                    '${model.imageUrl}',),
                 fit: BoxFit.cover,
               ),
             ),

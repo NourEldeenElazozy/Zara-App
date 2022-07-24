@@ -75,11 +75,15 @@ Widget defaultButton({
         ),
       ),
       child: MaterialButton(
+
+
         onPressed: function,
         child: Text(
+
           text.toUpperCase(),
           style: white14bold(),
         ),
+          color: Colors.black54,
       ),
     );
 

@@ -16,7 +16,7 @@ class SingleCategoryModel {
 
 class Data {
   int currentPage;
-  List<Products> data;
+  List<Products> products ;
   String firstPageUrl;
   int from;
   int lastPage;
@@ -30,7 +30,7 @@ class Data {
 
   Data(
       {this.currentPage,
-        this.data,
+        this.products ,
         this.firstPageUrl,
         this.from,
         this.lastPage,
@@ -45,9 +45,9 @@ class Data {
   Data.fromJson(Map<String, dynamic> json) {
     currentPage = json['current_page'];
     if (json['data'] != null) {
-      data = new List<Products>();
+      products = new List<Products>();
       json['data'].forEach((v) {
-        data.add(new Products.fromJson(v));
+        products.add(new Products.fromJson(v));
       });
     }
     firstPageUrl = json['first_page_url'];
@@ -65,8 +65,8 @@ class Data {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['current_page'] = this.currentPage;
-    if (this.data != null) {
-      data['data'] = this.data.map((v) => v.toJson()).toList();
+    if (this.products != null) {
+      data['data'] = this.products.map((v) => v.toJson()).toList();
     }
     data['first_page_url'] = this.firstPageUrl;
     data['from'] = this.from;

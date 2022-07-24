@@ -6,6 +6,8 @@ import 'package:salla/models/add_cart/add_cart_model.dart';
 import 'package:salla/models/add_fav/add_fav_model.dart';
 import 'package:salla/models/cart/cart.dart';
 import 'package:salla/models/categories/categories.dart';
+import 'package:salla/models/categories/categories2.dart';
+import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/models/home/home_model.dart';
 import 'package:salla/modules/cart/cart_screen.dart';
 import 'package:salla/modules/categories/categories_screen.dart';
@@ -33,6 +35,7 @@ class AppCubit extends Cubit<AppStates>
   int selectedLanguageIndex;
 
   void changeSelectedLanguage(int index) {
+
     selectedLanguageIndex = index;
 
     for (int i = 0; i < selectedLanguage.length; i++) {
@@ -74,9 +77,11 @@ class AppCubit extends Cubit<AppStates>
   }
 
   HomeModel homeModel;
+  HomeModel homeModel2;
   Map<int, bool> favourites = {};
   Map<int, bool> cart = {};
   int cartProductsNumber = 0;
+
 
   getHomeData() {
     emit(AppLoadingState());
@@ -88,10 +93,12 @@ class AppCubit extends Cubit<AppStates>
         .then((value) {
       homeModel = HomeModel.fromJson(value.data);
 
-      homeModel.data.products.forEach((element)
+      homeModel.products.forEach((element)
       {
+
+
         favourites.addAll({
-          element.id: element.inFavorites
+          element.id: element.infavorites
         });
         cart.addAll({
           element.id: element.inCart
@@ -112,16 +119,26 @@ class AppCubit extends Cubit<AppStates>
     });
   }
 
+  CategoriesModel2 categoriesModel2;
+
+
   CategoriesModel categoriesModel;
+
 
   getCategories()
   {
+
     repository
         .getCategories()
         .then((value)
     {
-      categoriesModel = CategoriesModel.fromJson(value.data);
 
+      categoriesModel2 = CategoriesModel2.fromJson(value.data);
+
+      print(value.data);
+
+
+      print(value.data);
       emit(AppCategoriesSuccessState());
 
       print(value.data.toString());

@@ -29,7 +29,7 @@ class DioImplementation extends DioHelper
 {
   final Dio dio = Dio(
     BaseOptions(
-      baseUrl: 'https://student.valuxapps.com/api/',
+      baseUrl: 'http://abdudashapi-001-site1.htempurl.com/api/',
       receiveDataWhenStatusError: true,
     ),
   );

@@ -82,3 +82,10 @@ class AppErrorState extends AppStates
 
   AppErrorState(this.error);
 }
+class InitialSearchState extends AppStates {}
+
+class LoadingSearchState extends AppStates {}
+
+class SuccessSearchState extends AppStates {}
+
+class ErrorSearchState extends AppStates {}

@@ -1,3 +1,4 @@
+/*
 import 'dart:ui';
 
 import 'package:carousel_slider/carousel_slider.dart';
@@ -324,3 +325,4 @@ class HomeScreen extends StatelessWidget {
         ),
       );
 }
+*/

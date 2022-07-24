@@ -5,6 +5,7 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/categories/categories.dart';
+import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/models/home/home_model.dart';
 import 'package:salla/modules/single_category/single_category_screen.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
@@ -15,49 +16,29 @@ import 'package:salla/shared/styles/colors.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
 
+import '../item_screen.dart';
+
 class HomeScreen extends StatelessWidget {
+
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
         var model = AppCubit.get(context).homeModel;
-        var categories = AppCubit.get(context).categoriesModel;
+        var categories = AppCubit.get(context).categoriesModel2;
+        List<dynamic> idProd = [];
+        var  categoriesid ='';
+
 
         return ConditionalBuilder(
-          condition: model != null && categories != null,
+          condition: model != null && categories != null ,
           builder: (context) => SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                CarouselSlider(
-                  options: CarouselOptions(
-                    height: 200,
-                    viewportFraction: 1.0,
-                    enlargeCenterPage: false,
-                    initialPage: 0,
-                    enableInfiniteScroll: true,
-                    reverse: false,
-                    autoPlay: true,
-                    autoPlayInterval: Duration(seconds: 3),
-                    autoPlayAnimationDuration: Duration(seconds: 1),
-                    autoPlayCurve: Curves.fastOutSlowIn,
-                    //onPageChanged: callbackFunction,
-                    scrollDirection: Axis.horizontal,
-                  ),
-                  items: model.data.banners
-                      .map(
-                        (item) => Image(
-                          image: NetworkImage(item.image),
-                          fit: BoxFit.cover,
-                          width: double.infinity,
-                        ),
-                      )
-                      .toList(),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
+
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 10.0,
@@ -78,11 +59,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: ListView.separated(
                     itemBuilder: (context, index) =>
-                        categoryItem(categories.data.data[index], context),
+                        categoryItem(categories.categories[index], context,555),
                     separatorBuilder: (context, index) => SizedBox(
                       width: 10.0,
                     ),
-                    itemCount: categories.data.data.length,
+                    itemCount:categories.categories.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
@@ -113,9 +94,9 @@ class HomeScreen extends StatelessWidget {
                     mainAxisSpacing: 1.0,
                     childAspectRatio: 1 / 1.8,
                     children: List.generate(
-                      model.data.products.length,
-                      (index) => productGridItem(
-                        model: model.data.products[index],
+                      model.products.length,
+                          (index) => productGridItem(
+                        model: model.products[index],
                         context: context,
                         index: index,
                       ),
@@ -133,41 +114,43 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget categoryItem(ProductData model, context) => InkWell(
+  Widget categoryItem(Categories model, context ,categoriesid ) => InkWell(
     onTap: (){
+      categoriesid=555;
+      print(categoriesid);
       navigateTo(context, SingleCategoryScreen(model.id, model.name),);
     },
     child: Container(
-          width: 90.0,
-          child: Stack(
-            alignment: Alignment.bottomCenter,
-            children: [
-              Image(
-                image: NetworkImage(
-                  model.image,
-                ),
-                fit: BoxFit.cover,
-                height: 90.0,
-                width: 90.0,
-              ),
-              Container(
-                width: double.infinity,
-                height: 25.0,
-                color: Colors.black.withOpacity(
-                  .8,
-                ),
-                child: Center(
-                  child: Text(
-                    model.name,
-                    style: white12bold(),
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ),
-            ],
+      width: 90.0,
+      child: Stack(
+        alignment: Alignment.bottomCenter,
+        children: [
+          Image(
+            image: NetworkImage(
+              model.imageUrl,
+            ),
+            fit: BoxFit.cover,
+            height: 90.0,
+            width: 90.0,
           ),
-        ),
+          Container(
+            width: double.infinity,
+            height: 25.0,
+            color: Colors.black.withOpacity(
+              .8,
+            ),
+            child: Center(
+              child: Text(
+                model.name,
+                style: white12bold(),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+          ),
+        ],
+      ),
+    ),
   );
 
   Widget productGridItem({
@@ -175,152 +158,161 @@ class HomeScreen extends StatelessWidget {
     @required BuildContext context,
     @required int index,
   }) =>
-      Container(
-        color: Colors.white,
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                bottom: 20.0,
-              ),
-              child: Stack(
-                alignment: AlignmentDirectional.bottomEnd,
-                children: [
-                  Image(
-                    image: NetworkImage(
-                      model.image,
+      InkWell(
+        onTap: (){
+          navigateTo(context, ItemDetails(model.id,model.name,model.imageUrl,model.description),);
+        },
+        child: Container(
+          color: Colors.white,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                  bottom: 20.0,
+                ),
+                child: Stack(
+                  alignment: AlignmentDirectional.bottomEnd,
+                  children: [
+                    Image(
+                      image: NetworkImage(
+                        model.imageUrl,
+                      ),
+                      //fit: BoxFit.cover,
+                      height: 250.0,
                     ),
-                    //fit: BoxFit.cover,
-                    height: 250.0,
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Align(
-                      alignment: AlignmentDirectional.bottomStart,
-                      child: Column(
-                        children: [
-                          FloatingActionButton(
-                            onPressed: () {
-                              AppCubit.get(context).changeFav(
-                                id: model.id,
-                              );
-                            },
-                            heroTag : '4',
-                            backgroundColor:
-                                AppCubit.get(context).favourites[model.id]
-                                    ? Colors.green
-                                    : null,
-                            mini: true,
-                            child: Icon(
-                              IconBroken.Heart,
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Align(
+                        alignment: AlignmentDirectional.bottomStart,
+                        child: Column(
+                          children: [
+                            FloatingActionButton(
+                              onPressed: () {
+                                AppCubit.get(context).changeFav(
+                                  id: model.id,
+                                );
+                              },
+                              heroTag : '4',
+                              backgroundColor:
+                              AppCubit.get(context).favourites[model.id]
+                                  ? Colors.green
+                                  : null,
+                              mini: true,
+                              child: Icon(
+                                IconBroken.Heart,
+                              ),
                             ),
-                          ),
-                          FloatingActionButton(
-                            onPressed: () {
-                              AppCubit.get(context).changeCart(
-                                id: model.id,
-                              );
-                            },
-                            heroTag : '3',
-                            backgroundColor: AppCubit.get(context).cart[model.id]
-                                ? Colors.green
-                                : null,
-                            mini: true,
-                            child: Icon(
-                              IconBroken.Buy,
+                            FloatingActionButton(
+                              onPressed: () {
+                                AppCubit.get(context).changeCart(
+                                  id: model.id,
+                                );
+                              },
+                              heroTag : '3',
+                              backgroundColor: AppCubit.get(context).cart[model.id]
+                                  ? Colors.green
+                                  : null,
+                              mini: true,
+                              child: Icon(
+                                IconBroken.Buy,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                  if (model.discount != 0)
-                    Container(
-                      child: Text(
-                        appLang(context).discount,
-                        style: white12regular(),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 5.0,
-                      ),
-                      color: Colors.red,
-                    ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 10.0,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Text(
-                        '${model.price.round()}',
-                        style: black16bold().copyWith(
-                          height: .5,
-                          color: defaultColor,
+                          ],
                         ),
                       ),
-                      SizedBox(
-                        width: 5.0,
-                      ),
-                      Text(
-                        appLang(context).currency,
-                        style: black12bold().copyWith(
-                          height: .5,
-                          color: defaultColor,
+                    ),
+                    if (model.discount != 0)
+                      Container(
+                        child: Text(
+                          appLang(context).discount,
+                          style: white12regular(),
                         ),
+                        padding: EdgeInsets.symmetric(
+                          horizontal: 5.0,
+                        ),
+                        color: Colors.red,
                       ),
-                    ],
-                  ),
-                  if (model.discount != 0)
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10.0,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
                     Row(
                       children: [
                         Text(
-                          '${model.oldPrice.round()}',
-                          style: black12bold().copyWith(
-                            color: Colors.grey,
-                            decoration: TextDecoration.lineThrough,
+                          '${model.price.round()}',
+                          style: black16bold().copyWith(
+                            height: .5,
+                            color: defaultColor,
                           ),
                         ),
-                        Padding(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 5.0,
-                          ),
-                          child: Container(
-                            width: 1.0,
-                            height: 10.0,
-                            color: Colors.grey,
-                          ),
+                        SizedBox(
+                          width: 5.0,
                         ),
                         Text(
-                          '${model.discount}%',
+                          appLang(context).currency,
                           style: black12bold().copyWith(
-                            color: Colors.red,
+                            height: .5,
+                            color: defaultColor,
                           ),
                         ),
                       ],
-                      crossAxisAlignment: CrossAxisAlignment.center,
                     ),
-                  SizedBox(
-                    height: 5.0,
-                  ),
-                  Text(
-                    model.name,
-                    maxLines: 2,
-                    style: TextStyle(
-                      height: 1.4,
+                    if (model.discount != 0)
+
+                      Row(
+                        children: [
+                          Text(
+
+                            '${model.oldPrice.round()}',
+                            style: black12bold().copyWith(
+                              color: Colors.grey,
+                              decoration: TextDecoration.lineThrough,
+                            ),
+                          ),
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 5.0,
+                            ),
+                            child: Container(
+                              width: 1.0,
+                              height: 10.0,
+                              color: Colors.grey,
+                            ),
+                          ),
+                          Text(
+                            '${model.discount}%',
+                            style: black12bold().copyWith(
+                              color: Colors.red,
+                            ),
+                          ),
+                        ],
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                      ),
+                    SizedBox(
+                      height: 5.0,
                     ),
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+                    Text(
+                      model.name,
+                      maxLines: 2,
+                      style: TextStyle(
+                        height: 1.4,
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       );
 }
+
+

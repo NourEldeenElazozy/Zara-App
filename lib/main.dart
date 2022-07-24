@@ -32,9 +32,9 @@ void main() async
   {
     start = LoginScreen();
   } else
-    {
-      start = SelectLanguageScreen();
-    }
+  {
+    start = SelectLanguageScreen();
+  }
 
   runApp(MyApp(
     translationFile: translation,

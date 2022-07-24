@@ -24,8 +24,9 @@ class CartScreen extends StatelessWidget {
             [
               if (state is AppUpdateCartLoadingState)
                 LinearProgressIndicator(
-                  backgroundColor: Colors.grey[300],
+                  backgroundColor: Colors.red[300],
                 ),
+
               Expanded(
                 child: ListView.separated(
                   physics: BouncingScrollPhysics(),
@@ -51,7 +52,7 @@ class CartScreen extends StatelessWidget {
                 child: Column(
                   children: [
                     Text(
-                      '${appLang(context).total} : ${model.data.total.round()} ${appLang(context).currency}',
+                      '${appLang(context).total} : ${model.data.total.round()}  دينار',
                       style: TextStyle(
                         fontSize: 20.0,
                       ),
@@ -160,7 +161,7 @@ class CartScreen extends StatelessWidget {
                                           width: 5.0,
                                         ),
                                         Text(
-                                          appLang(context).currency,
+                                          'دينار',
                                           style: black12bold().copyWith(
                                             height: .5,
                                             color: defaultColor,
@@ -205,44 +206,9 @@ class CartScreen extends StatelessWidget {
                               Row(
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  IconButton(
-                                    onPressed: () {
-                                      if (model.quantity != 1) {
-                                        AppCubit.get(context).updateCart(
-                                          id: model.id,
-                                          quantity: --model.quantity,
-                                        );
-                                      }
-                                    },
-                                    icon: CircleAvatar(
-                                      child: Icon(
-                                        Icons.remove,
-                                        size: 14.0,
-                                      ),
-                                      radius: 15.0,
-                                    ),
-                                  ),
-                                  Text(
-                                    '${model.quantity}',
-                                    style: black18bold().copyWith(
-                                      color: defaultColor,
-                                    ),
-                                  ),
-                                  IconButton(
-                                    onPressed: () {
-                                      AppCubit.get(context).updateCart(
-                                        id: model.id,
-                                        quantity: ++model.quantity,
-                                      );
-                                    },
-                                    icon: CircleAvatar(
-                                      child: Icon(
-                                        Icons.add,
-                                        size: 14.0,
-                                      ),
-                                      radius: 15.0,
-                                    ),
-                                  ),
+
+
+
                                 ],
                               ),
                             ],

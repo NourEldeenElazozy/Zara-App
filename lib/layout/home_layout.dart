@@ -18,10 +18,20 @@ class HomeLayout extends StatelessWidget
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
+            backgroundColor: Colors.black54,
             title: Row(
               children: [
-                Text(
-                  appLang(context).salla,
+                Center(
+                  child: Center(
+                    child: Text(
+
+                      appLang(context).salla,
+                      style: TextStyle(
+                        color: Colors.grey,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                  ),
                 ),
                 SizedBox(
                   width: 20.0,
@@ -95,15 +105,15 @@ class HomeLayout extends StatelessWidget
                     Icon(
                       IconBroken.Bag,
                     ),
-                    if(state is! AppLoadingState && AppCubit.get(context).cartProductsNumber != 0)
+                   /* if(state is! AppLoadingState && AppCubit.get(context).cartProductsNumber != 0)*/
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Colors.red,
                       ),
                       padding: EdgeInsets.all(3.0,),
-                      child: Text(
-                        AppCubit.get(context).cartProductsNumber >= 9 ? '9' : AppCubit.get(context).cartProductsNumber.toString(),
+                     child: Text(
+                       AppCubit.get(context).cartProductsNumber >= 9 ? '9' : AppCubit.get(context).cartProductsNumber.toString(),
                         style: white10bold(),
                       ),
                     ),

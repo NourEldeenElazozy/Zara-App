@@ -8,8 +8,14 @@ import 'local/cache_helper.dart';
 
 abstract class Repository {
   Future<Response> userLogin({
-    @required String email,
+    @required String username,
     @required String password,
+  });
+  Future<Response> userRegister({
+    @required String username,
+    @required String password,
+    @required String confirmPassword,
+    @required String phoneNumber,
   });
 
   Future<Response> getHomeData({
@@ -21,7 +27,7 @@ abstract class Repository {
   });
 
   Future<Response> getSingleCategory({
-    @required String token,
+   /* @required String token,*/
     @required int id,
   });
 
@@ -69,19 +75,36 @@ class RepoImplementation extends Repository {
 
   @override
   Future<Response> userLogin({
-    String email,
+    String username,
     String password,
   }) async {
     return await dioHelper.postData(
       url: LOGIN,
       data:
       {
-        'email':email,
+        'username':username,
         'password':password,
       },
     );
   }
-
+  @override
+  Future<Response> userRegister({
+    String username,
+    String password,
+    String confirmPassword,
+    String phoneNumber,
+  }) async {
+    return await dioHelper.postData(
+      url: REGISTER,
+      data:
+      {
+        'username':username,
+        'password':password,
+        'confirmPassword':confirmPassword,
+        'phoneNumber':phoneNumber,
+      },
+    );
+  }
   @override
   Future<Response> addOrRemoveFavourite({
     String token,
