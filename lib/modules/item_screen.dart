@@ -8,17 +8,19 @@ import 'package:flutter/material.dart';
 class ItemDetails extends StatelessWidget {
 
   static const String ITEM_DETAILS_SCREEN = 'item_details';
-  final int id;
-  final String name;
-  final String image;
-  final String description;
+   int id;
+   String name;
+   String image;
+  String description;
   ItemDetails(this.id, this.name, this.image,this.description);
 
   @override
   Widget build(BuildContext context) {
+    if(description==null){description= "";}
+
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Salla'),
+      appBar: AppBar(backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+        title: Text('Zara'),
       ),
       body: Center(
         child: SingleChildScrollView(
@@ -27,6 +29,8 @@ class ItemDetails extends StatelessWidget {
               SizedBox(
                 height: 12,
               ),
+
+
               ImageDialog(ItemDetails(id, name, image,description),context),
 
               SizedBox(
