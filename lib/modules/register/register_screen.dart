@@ -11,12 +11,22 @@ import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
 
 
-class RegisterScreen extends StatelessWidget {
+class RegisterScreen extends StatefulWidget {
 
+  @override
+  _RegisterScreenState createState() => _RegisterScreenState();
+}
+
+class _RegisterScreenState extends State<RegisterScreen> {
+  bool _isObscure = true;
   var userNameController = TextEditingController();
+
   var passwordController = TextEditingController();
+
   var confirmPasswordController = TextEditingController();
+
   var phoneNumberController = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -43,7 +53,7 @@ class RegisterScreen extends StatelessWidget {
       },
       builder: (context , state){
         return  Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),),
           body: Form(
             key: formKey,
             child: Center(
@@ -108,6 +118,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       TextFormField(
                         controller: passwordController,
+                        obscureText: _isObscure,
                         validator: (value) {
                           if (value.isEmpty) {
                             return appLang(context).passwordValidation;
@@ -115,11 +126,19 @@ class RegisterScreen extends StatelessWidget {
                           return null;
                         },
                         decoration: InputDecoration(
+
                           prefixIcon: Icon(
+
                             IconBroken.Lock,
                           ),
-                          suffixIcon: Icon(
-                            IconBroken.Show,
+                          suffixIcon: IconButton(
+                            icon: Icon(  _isObscure ? Icons.visibility : Icons.visibility_off),
+                            onPressed: (){
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+
                           ),
                           labelText: appLang(context).password,
                           border: OutlineInputBorder(),
@@ -130,6 +149,7 @@ class RegisterScreen extends StatelessWidget {
                       ),
                       TextFormField(
                         controller: confirmPasswordController,
+                        obscureText: _isObscure,
                         validator: (value) {
                           if (value.isEmpty) {
                             return appLang(context).confirmPassword;
@@ -137,16 +157,25 @@ class RegisterScreen extends StatelessWidget {
                           return null;
                         },
                         decoration: InputDecoration(
+
                           prefixIcon: Icon(
+
                             IconBroken.Lock,
                           ),
-                          suffixIcon: Icon(
-                            IconBroken.Show,
+                          suffixIcon: IconButton(
+                            icon: Icon(  _isObscure ? Icons.visibility : Icons.visibility_off),
+                            onPressed: (){
+                              setState(() {
+                                _isObscure = !_isObscure;
+                              });
+                            },
+
                           ),
                           labelText: appLang(context).confirmPassword,
                           border: OutlineInputBorder(),
                         ),
                       ),
+
                       SizedBox(
                         height: 20.0,
                       ),
@@ -180,5 +209,4 @@ class RegisterScreen extends StatelessWidget {
 
     );
   }
-
-  }
+}

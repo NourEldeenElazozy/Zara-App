@@ -18,16 +18,16 @@ class HomeLayout extends StatelessWidget
       builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
-            backgroundColor: Colors.black54,
+            backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
             title: Row(
               children: [
                 Center(
                   child: Center(
                     child: Text(
 
-                      appLang(context).salla,
+                      'ZARA',
                       style: TextStyle(
-                        color: Colors.grey,
+                        color: Color.fromRGBO(255, 255, 255, 0.9254901960784314),
                         fontSize: 16.0,
                       ),
                     ),
@@ -44,7 +44,7 @@ class HomeLayout extends StatelessWidget
                         borderRadius: BorderRadius.circular(
                           2.0,
                         ),
-                        color: Colors.white,
+                        color: Color.fromRGBO(255, 255, 255, 0.9254901960784314),
                       ),
                       padding: EdgeInsets.symmetric(
                         horizontal: 15.0,
@@ -54,7 +54,7 @@ class HomeLayout extends StatelessWidget
                         children: [
                           Icon(
                             IconBroken.Search,
-                            color: Colors.grey,
+                            color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                             size: 16.0,
                           ),
                           SizedBox(
@@ -64,7 +64,7 @@ class HomeLayout extends StatelessWidget
                             child: Text(
                               appLang(context).search,
                               style: TextStyle(
-                                color: Colors.grey,
+                                color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                                 fontSize: 16.0,
                               ),
                             ),
@@ -80,6 +80,8 @@ class HomeLayout extends StatelessWidget
           body: AppCubit.get(context)
               .bottomWidgets[AppCubit.get(context).currentIndex],
           bottomNavigationBar: BottomNavigationBar(
+
+            fixedColor: Color.fromRGBO(3, 64, 129, 1.0),
             onTap: (index) {
               AppCubit.get(context).changeBottomIndex(index);
             },
@@ -87,14 +89,18 @@ class HomeLayout extends StatelessWidget
             currentIndex: AppCubit.get(context).currentIndex,
             items: [
               BottomNavigationBarItem(
+
                 icon: Icon(
                   IconBroken.Home,
+                  color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                 ),
                 label: appLang(context).home,
+                backgroundColor:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
               ),
               BottomNavigationBarItem(
                 icon: Icon(
                   IconBroken.Category,
+                  color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                 ),
                 label: appLang(context).categories,
               ),
@@ -103,13 +109,15 @@ class HomeLayout extends StatelessWidget
                   alignment: AlignmentDirectional.topEnd,
                   children: [
                     Icon(
+
                       IconBroken.Bag,
+                      color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                     ),
                    /* if(state is! AppLoadingState && AppCubit.get(context).cartProductsNumber != 0)*/
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Colors.red,
+                        color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                       ),
                       padding: EdgeInsets.all(3.0,),
                      child: Text(
@@ -124,6 +132,7 @@ class HomeLayout extends StatelessWidget
               BottomNavigationBarItem(
                 icon: Icon(
                   IconBroken.Setting,
+                  color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                 ),
                 label: appLang(context).settings,
               ),

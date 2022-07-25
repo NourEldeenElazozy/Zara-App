@@ -24,7 +24,7 @@ class LoginScreen extends StatelessWidget {
       textDirection: AppCubit.get(context).appDirection,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(),
+        appBar: AppBar(backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),),
         body: BlocProvider(
           create: (BuildContext context) => di<LoginCubit>(),
           child: BlocConsumer<LoginCubit, LoginStates>(

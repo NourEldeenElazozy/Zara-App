@@ -202,8 +202,8 @@ class HomeScreen extends StatelessWidget {
                               heroTag : '4',
                               backgroundColor:
                               AppCubit.get(context).favourites[model.id]
-                                  ? Colors.green
-                                  : null,
+                                  ? Color.fromRGBO(1, 44, 52, 0.9254901960784314)
+                                  : Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                               mini: true,
                               child: Icon(
                                 IconBroken.Heart,
@@ -228,8 +228,8 @@ class HomeScreen extends StatelessWidget {
                               },
                               heroTag : '3',
                               backgroundColor: AppCubit.get(context).cart[model.id]
-                                  ? Colors.green
-                                  : null,
+                                  ? Color.fromRGBO(1, 44, 52, 0.9254901960784314)
+                                  : Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                               mini: true,
                               child: Icon(
                                 IconBroken.Buy,

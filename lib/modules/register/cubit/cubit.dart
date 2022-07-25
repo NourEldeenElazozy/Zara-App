@@ -5,7 +5,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/user/user_model.dart';
 import 'package:salla/modules/login/cubit/states.dart';
 import 'package:salla/modules/register/cubit/states.dart';
+import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/network/repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterCubit extends Cubit<RegisterStates>
 {
@@ -34,13 +36,17 @@ class RegisterCubit extends Cubit<RegisterStates>
     )
         .then((value)
 
-    {
+    async {
 print(value.data);
       userModel = UserModel.fromJson(value.data);
 
       if(userModel.status)
       {
         emit(RegisterSuccessState(userModel));
+        SharedPreferences prefs = await SharedPreferences.getInstance();
+        prefs.setString('username', username);
+        userToken = prefs.getString('username');
+        print(userToken);
         print(value.data);
       } else
       {

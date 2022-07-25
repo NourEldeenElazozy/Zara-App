@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:salla/layout/home_layout.dart';
+import 'package:salla/modules/home/home_screen.dart';
 import 'package:salla/modules/login/login_screen.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/components/components.dart';
@@ -58,7 +60,7 @@ class _OnBoardScreenState extends State<OnBoardScreen>
   {
     navigateAndFinish(
       context,
-      LoginScreen(),
+      HomeLayout(),
     );
   }
 
@@ -69,7 +71,7 @@ class _OnBoardScreenState extends State<OnBoardScreen>
       textDirection: AppCubit.get(context).appDirection,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(),
+        appBar: AppBar(  backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314)),
         body: Column(
           children: <Widget>
           [

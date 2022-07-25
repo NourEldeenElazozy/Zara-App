@@ -15,7 +15,7 @@ class _SelectLanguageScreenState extends State<SelectLanguageScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      appBar: AppBar(backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314)),
       body: Column(
         children: [
           Padding(

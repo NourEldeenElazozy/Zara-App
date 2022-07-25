@@ -68,6 +68,7 @@ class AppCubit extends Cubit<AppStates>
     CartScreen(),
     SettingsScreen(),
   ];
+
   int categoryId=0;
   int currentIndex = 0;
 
@@ -75,6 +76,8 @@ class AppCubit extends Cubit<AppStates>
     currentIndex = index;
     emit(AppChangeBottomIndexState());
   }
+
+
 
   HomeModel homeModel;
   HomeModel homeModel2;
@@ -84,8 +87,31 @@ class AppCubit extends Cubit<AppStates>
   int cartProductsNumber = 0;
 
 
+
+
+
   getHomeData() {
+    List<AppImage> images = [
+      AppImage(image: "imageUrl", path: "path", active: "active", inactive: "inactive"),
+
+    ];
+    AppImage appImage = images[0];
+    print(appImage.path);
+    for (var i = 0; i < images.length; i++) {
+
+      var currentElement = images[i];
+      print(currentElement.image);
+    }
+    images.forEach((element){
+      List<AppImage> images2 = [
+        AppImage(image: "imageUrl", path: "path", active: "active", inactive: "inactive"),
+      ];
+    });
+
+
     emit(AppLoadingState());
+
+
 
     repository
         .getHomeData(
@@ -98,7 +124,13 @@ class AppCubit extends Cubit<AppStates>
 
       homeModel.products.forEach((element)
       {
-        print('categoryId');
+        final Appimage = <AppImage>[
+          for (int i = 0; i < 5; i++)
+            AppImage(image: 's', active: 's',inactive: 's',path: 's',),];
+
+
+
+
 print(categoryId);
         if(element.categoryId==categoryId)
         categories.addAll({
@@ -117,7 +149,8 @@ print(categoryId);
           cartProductsNumber++;
         }
       });
-      print('aaaaaaaaaa');
+
+
       print(categories);
       print('aaaaaaaaaaaa');
       emit(AppSuccessState(homeModel));
@@ -288,3 +321,16 @@ print(categoryId);
     emit(AppChangeCartLocalState());
   }
 }
+class AppImage{
+  String image;
+  String path;
+  String active;
+  String inactive;
+
+// added '?'
+
+  AppImage({this.image, this.path, this.active, this.inactive});
+// can also add 'required' keyword
+}
+
+

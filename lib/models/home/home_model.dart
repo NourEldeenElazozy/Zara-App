@@ -1,6 +1,6 @@
 class HomeModel {
   List<Products> products;
-
+  List<ProductsCategory> productsCategory;
   HomeModel({this.products});
 
   HomeModel.fromJson(Map<String, dynamic> json) {
@@ -96,4 +96,10 @@ class Products {
     data['images'] = this.images;
     return data;
   }
+}
+class ProductsCategory {
+  int id;
+  String ProductName;
+  int CategoryId;
+  ProductsCategory({this.id, this.CategoryId, this.ProductName});
 }
