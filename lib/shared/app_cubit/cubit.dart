@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dartz/dartz_streaming.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/add_cart/add_cart_model.dart';
@@ -69,7 +70,7 @@ class AppCubit extends Cubit<AppStates>
     SettingsScreen(),
   ];
 
-  int categoryId=0;
+  int categoryId;
   int currentIndex = 0;
 
   void changeBottomIndex(int index) {
@@ -85,28 +86,20 @@ class AppCubit extends Cubit<AppStates>
   Map<int, int> categories = {};
   Map<int, bool> cart = {};
   int cartProductsNumber = 0;
-
+  List<myProduct> products=[];
 
 
 
 
   getHomeData() {
-    List<AppImage> images = [
-      AppImage(image: "imageUrl", path: "path", active: "active", inactive: "inactive"),
 
-    ];
-    AppImage appImage = images[0];
-    print(appImage.path);
-    for (var i = 0; i < images.length; i++) {
 
-      var currentElement = images[i];
-      print(currentElement.image);
-    }
-    images.forEach((element){
-      List<AppImage> images2 = [
-        AppImage(image: "imageUrl", path: "path", active: "active", inactive: "inactive"),
-      ];
-    });
+
+
+
+
+
+
 
 
     emit(AppLoadingState());
@@ -121,15 +114,28 @@ class AppCubit extends Cubit<AppStates>
         .then((value) {
 
       homeModel = HomeModel.fromJson(value.data);
-
+      products.clear();
       homeModel.products.forEach((element)
       {
-        final Appimage = <AppImage>[
-          for (int i = 0; i < 5; i++)
-            AppImage(image: 's', active: 's',inactive: 's',path: 's',),];
+
+       /* List data=[
+        ];
+        categoryId=26;
+        print(categoryId);
+        if(categoryId==element.categoryId)
 
 
+        data.addAll({
+          {'name':element.name,'ProductId':element.category,'CatId':element.categoryId,
+            'price':element.price,'imageUrl':element.imageUrl},
+        });
 
+        data.forEach((element) {
+          products.add(myProduct.fromMap(element));
+        });
+        print('data.length');
+       *//* print(products.first.name);*//*
+        print(products.first);*/
 
 print(categoryId);
         if(element.categoryId==categoryId)
@@ -162,6 +168,74 @@ print(categoryId);
     });
   }
 
+  getCategoriesItems() {
+
+    products.clear();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      products.clear();
+      homeModel.products.forEach((element)
+      {
+
+        List data=[
+        ];
+
+
+
+        if(categoryId==element.categoryId)
+          { print('true');
+          data.addAll({
+            {'name':element.name,'ProductId':element.category,'CatId':element.categoryId,
+              'price':element.price,'imageUrl':element.imageUrl,'description':element.description},
+          });
+
+          data.forEach((element) {
+            products.add(myProduct.fromMap(element));
+          });
+
+          print(products.first.name);
+
+
+          print(categoryId);}
+
+
+
+        favourites.addAll({
+          element.id: element.infavorites
+        });
+        cart.addAll({
+          element.id: element.inCart
+        });
+
+        if(element.inCart)
+        {
+          cartProductsNumber++;
+        }
+      });
+
+
+      print(categories);
+      print('aaaaaaaaaaaa');
+      emit(AppSuccessState(homeModel));
+
+
+
+  }
   CategoriesModel2 categoriesModel2;
 
 
@@ -321,16 +395,50 @@ print(categoryId);
     emit(AppChangeCartLocalState());
   }
 }
-class AppImage{
-  String image;
-  String path;
-  String active;
-  String inactive;
 
-// added '?'
 
-  AppImage({this.image, this.path, this.active, this.inactive});
-// can also add 'required' keyword
+class myProduct{
+  String name;
+  int ProductId;
+  int CatId;
+  String imageUrl;
+  String description;
+  dynamic Price;
+  myProduct({this.name , this.ProductId,this.CatId, this.imageUrl, this.Price,this.description});
+  Map<String,dynamic>toMap(){
+
+    final result=<String,dynamic>{};
+    if(name!=null)
+      {
+        result.addAll({'name':name});
+      }
+    if(ProductId!=null)
+    {
+      result.addAll({'ProductId':ProductId});
+    }
+    if(CatId!=null)
+    {
+      result.addAll({'CatId':CatId});
+    }
+  if(description!=null)
+  {
+  result.addAll({'description':description});
+  }
+    return result;
+
+  }
+  factory myProduct.fromMap(Map<String,dynamic>map){
+    return myProduct(
+      name: map['name'],
+      ProductId: map['ProductId'].hashCode,
+      CatId: map['CatId'].hashCode,
+      imageUrl: map['imageUrl'],
+      Price: map['Price'].hashCode,
+      description: map['description']
+    );
+  }
+  StringToJson()=>
+      json.encode(toMap());
+
+  factory myProduct.fromJson(String,Source)=>myProduct.fromMap(json.decode(Source));
 }
-
-

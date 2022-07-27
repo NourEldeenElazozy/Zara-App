@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/categories/categories.dart';
 import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/modules/single_category/single_category_screen.dart';
+import 'package:salla/modules/single_category/single_category_screen2.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/app_cubit/states.dart';
 import 'package:salla/shared/components/components.dart';
@@ -43,8 +44,9 @@ class CategoriesScreen extends StatelessWidget {
 
   Widget categoryItem(context, Categories model ) => InkWell(
     onTap: (){
-
-      navigateTo(context, SingleCategoryScreen(model.id, model.name),);
+      AppCubit.get(context).categoryId=model.id;
+      AppCubit.get(context).getCategoriesItems();
+      navigateTo(context, SingleCategoryScreen2(title: model.name),);
     },
     child: Padding(
       padding: const EdgeInsets.all(20.0),
@@ -59,7 +61,7 @@ class CategoriesScreen extends StatelessWidget {
               ),
               image: DecorationImage(
                 image: NetworkImage(
-                    '${model.imageUrl}',),
+                  'http://abdudashapi-001-site1.htempurl.com/img/${model.imageUrl}',),
                 fit: BoxFit.cover,
               ),
             ),

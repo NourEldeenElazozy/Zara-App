@@ -121,7 +121,7 @@ class ItemDetails extends StatelessWidget {
         child:  Image(
           image: NetworkImage(
 
-          item.image,
+          'http://abdudashapi-001-site1.htempurl.com/img/${item.image}',
           ),
           //fit: BoxFit.cover,
           height: 250.0,

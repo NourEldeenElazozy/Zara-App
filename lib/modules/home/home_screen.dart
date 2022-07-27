@@ -9,6 +9,7 @@ import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/models/home/home_model.dart';
 import 'package:salla/modules/login/login_screen.dart';
 import 'package:salla/modules/single_category/single_category_screen.dart';
+import 'package:salla/modules/single_category/single_category_screen2.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/app_cubit/states.dart';
 import 'package:salla/shared/components/components.dart';
@@ -120,11 +121,11 @@ class HomeScreen extends StatelessWidget {
   Widget categoryItem(Categories model, context  ) => InkWell(
     onTap: (){
       AppCubit.get(context).categoryId=model.id;
+      AppCubit.get(context).getCategoriesItems();
 
-      print(model.name);
-      print(AppCubit.get(context).categoryId);
-      AppCubit.get(context).getHomeData();
-      navigateTo(context, SingleCategoryScreen(model.id, model.name),);
+
+
+      navigateTo(context, SingleCategoryScreen2(title: model.name),);
     },
     child: Container(
       width: 90.0,
@@ -133,7 +134,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Image(
             image: NetworkImage(
-              model.imageUrl,
+                'http://abdudashapi-001-site1.htempurl.com/img/${model.imageUrl}',
             ),
             fit: BoxFit.cover,
             height: 90.0,
@@ -182,7 +183,7 @@ class HomeScreen extends StatelessWidget {
                   children: [
                     Image(
                       image: NetworkImage(
-                        model.imageUrl,
+                        'http://abdudashapi-001-site1.htempurl.com/img/${model.imageUrl}',
                       ),
                       //fit: BoxFit.cover,
                       height: 250.0,
