@@ -1,6 +1,5 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/single_category/single_category_model.dart';
-
 import 'package:salla/modules/single_category/cubit/states.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/components/constants.dart';
@@ -18,24 +17,25 @@ class SingleCategoryCubit extends Cubit<SingleCategoryStates>
 
   getCategories(int id, context)
   {
-    print('sssssssssss');
+
     emit(SingleCategoryLoadingState());
 
     repository
         .getSingleCategory( id: id)
         .then((value)
     {
+
       singleCategoryModel = SingleCategoryModel.fromJson(value.data);
 
-print(value.data);
-      singleCategoryModel.data.products.forEach((element)
+      singleCategoryModel.data.data.forEach((element)
       {
-        if(!AppCubit.get(context).favourites.containsKey(element.id)) {
-          /*  AppCubit.get(context).favourites.addAll({
+        if(!AppCubit.get(context).favourites.containsKey(element.id))
+      /*  {
+          AppCubit.get(context).favourites.addAll({
             element.id: element.inFavorites
           });
         }*/
-        }
+
         if(!AppCubit.get(context).cart.containsKey(element.id))
         {
           AppCubit.get(context).cart.addAll({

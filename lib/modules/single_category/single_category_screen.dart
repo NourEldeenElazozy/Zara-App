@@ -2,6 +2,7 @@ import 'package:conditional_builder/conditional_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/home/home_model.dart';
+import 'package:salla/models/home/home_model2.dart';
 import 'package:salla/modules/single_category/cubit/cubit.dart';
 import 'package:salla/modules/single_category/cubit/states.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
@@ -28,9 +29,7 @@ class SingleCategoryScreen extends StatelessWidget
         builder: (context, state)
         {
           var model = SingleCategoryCubit.get(context).singleCategoryModel;
-          print('SingleCategoryScreen');
-          print(AppCubit.get(context).categoryId);
-          print(AppCubit.get(context).categories);
+
           return Scaffold(
             appBar: AppBar(
               title: Text(
@@ -42,7 +41,7 @@ class SingleCategoryScreen extends StatelessWidget
               builder: (context) => ListView.separated(
                 physics: BouncingScrollPhysics(),
                 itemBuilder: (context, index) => singleProductItem(
-                  model: model.data.products[index],
+                  model: model.data.data[index],
                   context: context,
                   index: index,
                 ),
@@ -51,7 +50,7 @@ class SingleCategoryScreen extends StatelessWidget
                   height: 1.0,
                   color: Colors.grey[300],
                 ),
-                itemCount: model.data.products.length,
+                itemCount: model.data.data.length,
               ),
               fallback: (context) => Center(
                 child: CircularProgressIndicator(),
@@ -192,7 +191,7 @@ class SingleCategoryScreen extends StatelessWidget
                                   ],
                                 ),
                               ),
-                              /*FloatingActionButton(
+                              FloatingActionButton(
                                 onPressed: ()
                                 {
                                   AppCubit.get(context).changeFav(
@@ -223,7 +222,7 @@ class SingleCategoryScreen extends StatelessWidget
                                 child: Icon(
                                   IconBroken.Buy,
                                 ),
-                              ),*/
+                              ),
                             ],
                           );
                         },

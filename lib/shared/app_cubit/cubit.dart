@@ -9,6 +9,7 @@ import 'package:salla/models/categories/categories.dart';
 import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/models/home/home_model.dart';
+import 'package:salla/models/home/home_model2.dart';
 import 'package:salla/modules/cart/cart_screen.dart';
 import 'package:salla/modules/categories/categories_screen.dart';
 import 'package:salla/modules/home/home_screen.dart';
@@ -20,7 +21,12 @@ import 'package:salla/shared/network/repository.dart';
 
 class AppCubit extends Cubit<AppStates>
 {
+  ProductsCat buffer;
+  ProductsCat buffer2;
+  final myProducts = List<ProductsCat>();
+
   final Repository repository;
+ List listProductsCat;
 
   AppCubit(this.repository) : super(AppInitialState());
 
@@ -85,28 +91,16 @@ class AppCubit extends Cubit<AppStates>
   Map<int, int> categories = {};
   Map<int, bool> cart = {};
   int cartProductsNumber = 0;
+  List<ProductsCat> listProductsCat2=[];
+
 
 
 
 
 
   getHomeData() {
-    List<AppImage> images = [
-      AppImage(image: "imageUrl", path: "path", active: "active", inactive: "inactive"),
 
-    ];
-    AppImage appImage = images[0];
-    print(appImage.path);
-    for (var i = 0; i < images.length; i++) {
 
-      var currentElement = images[i];
-      print(currentElement.image);
-    }
-    images.forEach((element){
-      List<AppImage> images2 = [
-        AppImage(image: "imageUrl", path: "path", active: "active", inactive: "inactive"),
-      ];
-    });
 
 
     emit(AppLoadingState());
@@ -124,14 +118,19 @@ class AppCubit extends Cubit<AppStates>
 
       homeModel.products.forEach((element)
       {
-        final Appimage = <AppImage>[
-          for (int i = 0; i < 5; i++)
-            AppImage(image: 's', active: 's',inactive: 's',path: 's',),];
+        listProductsCat=[
+          for (int i = 0; i < homeModel.products.length; i++)
+
+            buffer = new ProductsCat(name: element.name,Cat_Id: element.categoryId,Prod_Id: element.id),
+            buffer2 = new ProductsCat(name: 'element.name',Cat_Id: element.categoryId,Prod_Id: element.id)
+
+
+        ];
+        print   ('//////////');
+print(listProductsCat[0]);
 
 
 
-
-print(categoryId);
         if(element.categoryId==categoryId)
         categories.addAll({
           element.id: element.categoryId
@@ -334,3 +333,9 @@ class AppImage{
 }
 
 
+class ProductsCat{
+  String name;
+  int Prod_Id;
+  int Cat_Id;
+  ProductsCat({this.name, this.Cat_Id, this.Prod_Id});
+}

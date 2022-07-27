@@ -25,13 +25,13 @@ class CategoriesScreen extends StatelessWidget {
           condition: categories != null,
           builder: (context) => ListView.separated(
             physics: BouncingScrollPhysics(),
-            itemBuilder: (context, index) => categoryItem(context, categories.categories[index]),
+            itemBuilder: (context, index) => categoryItem(context, categories.data.categories[index]),
             separatorBuilder: (context, index) => Container(
               width: double.infinity,
               height: 1.0,
               color: Colors.grey[300],
             ),
-            itemCount: categories.categories.length,
+            itemCount: categories.data.categories.length,
           ),
           fallback: (context) => Center(
             child: CircularProgressIndicator(),

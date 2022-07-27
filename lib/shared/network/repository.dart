@@ -29,6 +29,7 @@ abstract class Repository {
   Future<Response> getSingleCategory({
    /* @required String token,*/
     @required int id,
+
   });
 
   Future<Response> getCategories();

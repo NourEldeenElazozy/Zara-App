@@ -1,4 +1,5 @@
 import 'package:salla/models/home/home_model.dart';
+import 'package:salla/models/home/home_model2.dart';
 
 abstract class AppStates {}
 

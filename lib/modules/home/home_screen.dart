@@ -7,7 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/categories/categories.dart';
 import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/models/home/home_model.dart';
-import 'package:salla/modules/login/login_screen.dart';
+import 'package:salla/models/home/home_model2.dart';
 import 'package:salla/modules/single_category/single_category_screen.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/app_cubit/states.dart';
@@ -16,13 +16,10 @@ import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/styles/colors.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 import '../item_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-
-
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
@@ -31,17 +28,16 @@ class HomeScreen extends StatelessWidget {
         var model = AppCubit.get(context).homeModel;
         var categories = AppCubit.get(context).categoriesModel2;
 
-
-
-
-
         return ConditionalBuilder(
-          condition: model != null && categories != null ,
+          condition: model != null && categories != null,
           builder: (context) => SingleChildScrollView(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
 
+                SizedBox(
+                  height: 10.0,
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                     horizontal: 10.0,
@@ -62,11 +58,11 @@ class HomeScreen extends StatelessWidget {
                   ),
                   child: ListView.separated(
                     itemBuilder: (context, index) =>
-                        categoryItem(categories.categories[index], context),
+                        categoryItem(categories.data.categories[index], context),
                     separatorBuilder: (context, index) => SizedBox(
                       width: 10.0,
                     ),
-                    itemCount:categories.categories.length,
+                    itemCount: categories.data.categories.length,
                     scrollDirection: Axis.horizontal,
                   ),
                 ),
@@ -117,13 +113,8 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget categoryItem(Categories model, context  ) => InkWell(
+  Widget categoryItem(Categories model, context) => InkWell(
     onTap: (){
-      AppCubit.get(context).categoryId=model.id;
-
-      print(model.name);
-      print(AppCubit.get(context).categoryId);
-      AppCubit.get(context).getHomeData();
       navigateTo(context, SingleCategoryScreen(model.id, model.name),);
     },
     child: Container(
@@ -133,7 +124,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Image(
             image: NetworkImage(
-              model.imageUrl,
+              'http://abdudashapi-001-site1.htempurl.com/img/${model.imageUrl}',
             ),
             fit: BoxFit.cover,
             height: 90.0,
@@ -165,171 +156,156 @@ class HomeScreen extends StatelessWidget {
     @required int index,
   }) =>
       InkWell(
-        onTap: (){
-          navigateTo(context, ItemDetails(model.id,model.name,model.imageUrl,model.description),);
-        },
-        child: Container(
-          color: Colors.white,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Padding(
-                padding: const EdgeInsets.only(
-                  bottom: 20.0,
-                ),
-                child: Stack(
-                  alignment: AlignmentDirectional.bottomEnd,
-                  children: [
-                    Image(
-                      image: NetworkImage(
-                        model.imageUrl,
-                      ),
-                      //fit: BoxFit.cover,
-                      height: 250.0,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Align(
-                        alignment: AlignmentDirectional.bottomStart,
-                        child: Column(
-                          children: [
-                            FloatingActionButton(
-                              onPressed: () {
-                                AppCubit.get(context).changeFav(
-                                  id: model.id,
-                                );
-                              },
-                              heroTag : '4',
-                              backgroundColor:
-                              AppCubit.get(context).favourites[model.id]
-                                  ? Color.fromRGBO(1, 44, 52, 0.9254901960784314)
-                                  : Color.fromRGBO(2, 37, 73, 0.9254901960784314),
-                              mini: true,
-                              child: Icon(
-                                IconBroken.Heart,
-                              ),
-                            ),
-                            FloatingActionButton(
-                              onPressed: () async {
-                                SharedPreferences prefs = await SharedPreferences.getInstance();
-                                var username = prefs.getString('username');
-                                if( username != null){
-                                  AppCubit.get(context).changeCart(
-                                    id: model.id,
-                                  );
-                                }else{
-                                  showToast(
-                                    text: 'يرجي تسجيل الدخول قبل الأستمرار',
-                                    color: ToastColors.ERROR,
-                                  );
-                                  navigateTo(context, LoginScreen());
-                                }
-
-                              },
-                              heroTag : '3',
-                              backgroundColor: AppCubit.get(context).cart[model.id]
-                                  ? Color.fromRGBO(1, 44, 52, 0.9254901960784314)
-                                  : Color.fromRGBO(2, 37, 73, 0.9254901960784314),
-                              mini: true,
-                              child: Icon(
-                                IconBroken.Buy,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    if (model.discount != 0)
-                      Container(
-                        child: Text(
-                          appLang(context).discount,
-                          style: white12regular(),
-                        ),
-                        padding: EdgeInsets.symmetric(
-                          horizontal: 5.0,
-                        ),
-                        color: Colors.red,
-                      ),
-                  ],
-                ),
+       onTap: (){
+        navigateTo(context, ItemDetails(model.id,model.name,model.imageUrl,model.description),);
+       },
+      child: Container(
+        color: Colors.white,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Padding(
+              padding: const EdgeInsets.only(
+                bottom: 20.0,
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Row(
-                      children: [
-                        Text(
-                          '${model.price.round()}',
-                          style: black16bold().copyWith(
-                            height: .5,
-                            color: defaultColor,
-                          ),
-                        ),
-                        SizedBox(
-                          width: 5.0,
-                        ),
-                        Text(
-                          appLang(context).currency,
-                          style: black12bold().copyWith(
-                            height: .5,
-                            color: defaultColor,
-                          ),
-                        ),
-                      ],
+              child: Stack(
+                alignment: AlignmentDirectional.bottomEnd,
+                children: [
+                  Image(
+                    image: NetworkImage(
+
+                    'http://abdudashapi-001-site1.htempurl.com/img/${model.imageUrl}',
                     ),
-                    if (model.discount != 0)
-
-                      Row(
+                    //fit: BoxFit.cover,
+                    height: 250.0,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Align(
+                      alignment: AlignmentDirectional.bottomStart,
+                      child: Column(
                         children: [
-                          Text(
-
-                            '${model.oldPrice.round()}',
-                            style: black12bold().copyWith(
-                              color: Colors.grey,
-                              decoration: TextDecoration.lineThrough,
+                          FloatingActionButton(
+                            onPressed: () {
+                              AppCubit.get(context).changeFav(
+                                id: model.id,
+                              );
+                            },
+                            heroTag : '4',
+                            backgroundColor:
+                            AppCubit.get(context).favourites[model.id]
+                                ? Colors.green
+                                : null,
+                            mini: true,
+                            child: Icon(
+                              IconBroken.Heart,
                             ),
                           ),
-                          Padding(
-                            padding: const EdgeInsets.symmetric(
-                              horizontal: 5.0,
-                            ),
-                            child: Container(
-                              width: 1.0,
-                              height: 10.0,
-                              color: Colors.grey,
-                            ),
-                          ),
-                          Text(
-                            '${model.discount}%',
-                            style: black12bold().copyWith(
-                              color: Colors.red,
+                          FloatingActionButton(
+                            onPressed: () {
+                              AppCubit.get(context).changeCart(
+                                id: model.id,
+                              );
+                            },
+                            heroTag : '3',
+                            backgroundColor: AppCubit.get(context).cart[model.id]
+                                ? Colors.green
+                                : null,
+                            mini: true,
+                            child: Icon(
+                              IconBroken.Buy,
                             ),
                           ),
                         ],
-                        crossAxisAlignment: CrossAxisAlignment.center,
                       ),
-                    SizedBox(
-                      height: 5.0,
                     ),
-                    Text(
-                      model.name,
-                      maxLines: 2,
-                      style: TextStyle(
-                        height: 1.4,
+                  ),
+                  if (model.discount != 0)
+                    Container(
+                      child: Text(
+                        appLang(context).discount,
+                        style: white12regular(),
                       ),
-                      overflow: TextOverflow.ellipsis,
+                      padding: EdgeInsets.symmetric(
+                        horizontal: 5.0,
+                      ),
+                      color: Colors.red,
                     ),
-                  ],
-                ),
+                ],
               ),
-            ],
-          ),
+            ),
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 10.0,
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text(
+                        '${model.price.round()}',
+                        style: black16bold().copyWith(
+                          height: .5,
+                          color: defaultColor,
+                        ),
+                      ),
+                      SizedBox(
+                        width: 5.0,
+                      ),
+                      Text(
+                        appLang(context).currency,
+                        style: black12bold().copyWith(
+                          height: .5,
+                          color: defaultColor,
+                        ),
+                      ),
+                    ],
+                  ),
+                  if (model.discount != 0)
+                    Row(
+                      children: [
+                        Text(
+                          '${model.oldPrice.round()}',
+                          style: black12bold().copyWith(
+                            color: Colors.grey,
+                            decoration: TextDecoration.lineThrough,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 5.0,
+                          ),
+                          child: Container(
+                            width: 1.0,
+                            height: 10.0,
+                            color: Colors.grey,
+                          ),
+                        ),
+                        Text(
+                          '${model.discount}%',
+                          style: black12bold().copyWith(
+                            color: Colors.red,
+                          ),
+                        ),
+                      ],
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                    ),
+                  SizedBox(
+                    height: 5.0,
+                  ),
+                  Text(
+                    model.name,
+                    maxLines: 2,
+                    style: TextStyle(
+                      height: 1.4,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+          ],
         ),
-      );
+      ));
 }
-
-
