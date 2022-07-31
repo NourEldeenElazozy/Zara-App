@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:salla/modules/search_screen.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/app_cubit/states.dart';
+import 'package:salla/shared/components/components.dart';
 import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
 
-class HomeLayout extends StatelessWidget
-{
+class HomeLayout extends StatelessWidget {
   @override
-  Widget build(BuildContext context)
-  {
+  Widget build(BuildContext context) {
     print(userToken);
 
     return BlocConsumer<AppCubit, AppStates>(
@@ -24,55 +24,26 @@ class HomeLayout extends StatelessWidget
                 Center(
                   child: Center(
                     child: Text(
-
                       'ZARA',
                       style: TextStyle(
-                        color: Color.fromRGBO(255, 255, 255, 0.9254901960784314),
+                        color:
+                            Color.fromRGBO(255, 255, 255, 0.9254901960784314),
                         fontSize: 16.0,
                       ),
                     ),
                   ),
                 ),
+                Center(
+                  child: Center(
+                      child: new IconButton(
+                    icon: new Icon(Icons.search),
+                    onPressed: () {
+                      navigateTo(context, SearchScreen());
+                    },
+                  )),
+                ),
                 SizedBox(
                   width: 20.0,
-                ),
-                Expanded(
-                  child: InkWell(
-                    onTap: (){},
-                    child: Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(
-                          2.0,
-                        ),
-                        color: Color.fromRGBO(255, 255, 255, 0.9254901960784314),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 15.0,
-                        vertical: 4.0,
-                      ),
-                      child: Row(
-                        children: [
-                          Icon(
-                            IconBroken.Search,
-                            color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
-                            size: 16.0,
-                          ),
-                          SizedBox(
-                            width: 15.0,
-                          ),
-                          Expanded(
-                            child: Text(
-                              appLang(context).search,
-                              style: TextStyle(
-                                color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
-                                fontSize: 16.0,
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ),
               ],
             ),
@@ -80,7 +51,6 @@ class HomeLayout extends StatelessWidget
           body: AppCubit.get(context)
               .bottomWidgets[AppCubit.get(context).currentIndex],
           bottomNavigationBar: BottomNavigationBar(
-
             fixedColor: Color.fromRGBO(3, 64, 129, 1.0),
             onTap: (index) {
               AppCubit.get(context).changeBottomIndex(index);
@@ -89,18 +59,17 @@ class HomeLayout extends StatelessWidget
             currentIndex: AppCubit.get(context).currentIndex,
             items: [
               BottomNavigationBarItem(
-
                 icon: Icon(
                   IconBroken.Home,
-                  color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                  color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                 ),
                 label: appLang(context).home,
-                backgroundColor:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
               ),
               BottomNavigationBarItem(
                 icon: Icon(
                   IconBroken.Category,
-                  color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                  color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                 ),
                 label: appLang(context).categories,
               ),
@@ -109,19 +78,25 @@ class HomeLayout extends StatelessWidget
                   alignment: AlignmentDirectional.topEnd,
                   children: [
                     Icon(
-
                       IconBroken.Bag,
-                      color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                      color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                     ),
-                   /* if(state is! AppLoadingState && AppCubit.get(context).cartProductsNumber != 0)*/
+                    /* if(state is! AppLoadingState && AppCubit.get(context).cartProductsNumber != 0)*/
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                       ),
-                      padding: EdgeInsets.all(3.0,),
-                     child: Text(
-                       AppCubit.get(context).cartProductsNumber >= 9 ? '9' : AppCubit.get(context).cartProductsNumber.toString(),
+                      padding: EdgeInsets.all(
+                        3.0,
+                      ),
+                      child: Text(
+                        AppCubit.get(context).productsCart.length != 0
+                            ? AppCubit.get(context)
+                                .productsCart
+                                .length
+                                .toString()
+                            : '0',
                         style: white10bold(),
                       ),
                     ),
@@ -132,7 +107,7 @@ class HomeLayout extends StatelessWidget
               BottomNavigationBarItem(
                 icon: Icon(
                   IconBroken.Setting,
-                  color:Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                  color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
                 ),
                 label: appLang(context).settings,
               ),

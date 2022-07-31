@@ -4,10 +4,22 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:salla/shared/app_cubit/cubit.dart';
 
 class ItemDetails extends StatelessWidget {
 
   static const String ITEM_DETAILS_SCREEN = 'item_details';
+  final ButtonStyle raisedButtonStyle = ElevatedButton.styleFrom(
+
+    onPrimary: Color.fromRGBO(255, 255, 255, 0.9254901960784314),
+    primary: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+    minimumSize: const Size.fromHeight(50),
+    padding: EdgeInsets.symmetric(horizontal: 20),
+
+    shape: const RoundedRectangleBorder(
+      borderRadius: BorderRadius.all(Radius.circular(4)),
+    ),
+  );
    int id;
    String name;
    String image;
@@ -31,12 +43,29 @@ class ItemDetails extends StatelessWidget {
               ),
 
 
+
               ImageDialog(ItemDetails(id, name, image,description),context),
 
               SizedBox(
                 height: 12,
               ),
               buildDescriptionItem( ItemDetails(id, name, image,description),context),
+              SizedBox(
+                height: 12,
+              ),
+              Container(
+
+                child: ElevatedButton(
+                  style: raisedButtonStyle,
+                  onPressed: ()
+                  {
+                    AppCubit.get(context).getCartItems();
+                   AppCubit.get(context).productsId= this.id;
+
+                  },
+                  child: Text('إضافة الي السلة'),
+                ),
+              )
             ],
           ),
 

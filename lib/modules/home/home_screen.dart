@@ -22,7 +22,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../item_screen.dart';
 
 class HomeScreen extends StatelessWidget {
-
+  String productsName='T';
 
   @override
   Widget build(BuildContext context) {
@@ -31,12 +31,14 @@ class HomeScreen extends StatelessWidget {
       builder: (context, state) {
         var model = AppCubit.get(context).homeModel;
         var categories = AppCubit.get(context).categoriesModel2;
+        var productsName = AppCubit.get(context).searchData(this.productsName);
 
 
 
 
 
         return ConditionalBuilder(
+
           condition: model != null && categories != null ,
           builder: (context) => SingleChildScrollView(
             child: Column(
@@ -125,6 +127,7 @@ class HomeScreen extends StatelessWidget {
 
 
 
+
       navigateTo(context, SingleCategoryScreen2(title: model.name),);
     },
     child: Container(
@@ -166,6 +169,7 @@ class HomeScreen extends StatelessWidget {
     @required int index,
   }) =>
       InkWell(
+
         onTap: (){
           navigateTo(context, ItemDetails(model.id,model.name,model.imageUrl,model.description),);
         },
@@ -188,11 +192,11 @@ class HomeScreen extends StatelessWidget {
                       //fit: BoxFit.cover,
                       height: 250.0,
                     ),
-                    Padding(
+                /*    Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Align(
                         alignment: AlignmentDirectional.bottomStart,
-                        child: Column(
+                       *//* child: Column(
                           children: [
                             FloatingActionButton(
                               onPressed: () {
@@ -237,9 +241,9 @@ class HomeScreen extends StatelessWidget {
                               ),
                             ),
                           ],
-                        ),
+                        ),*//*
                       ),
-                    ),
+                    ),*/
                     if (model.discount != 0)
                       Container(
                         child: Text(

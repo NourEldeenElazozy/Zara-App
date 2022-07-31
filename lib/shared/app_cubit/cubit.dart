@@ -71,6 +71,9 @@ class AppCubit extends Cubit<AppStates>
   ];
 
   int categoryId;
+  int productsId;
+  String productsName;
+
   int currentIndex = 0;
 
   void changeBottomIndex(int index) {
@@ -87,6 +90,13 @@ class AppCubit extends Cubit<AppStates>
   Map<int, bool> cart = {};
   int cartProductsNumber = 0;
   List<myProduct> products=[];
+  List<myProductCart> productsCart=[];
+  List<Products> products2=[];
+  List<Products> searchList=[];
+
+
+
+
 
 
 
@@ -114,9 +124,21 @@ class AppCubit extends Cubit<AppStates>
         .then((value) {
 
       homeModel = HomeModel.fromJson(value.data);
+
+        homeModel = HomeModel.fromJson(value.data);
+        products2.addAll(homeModel.products);
+
+
+
+
+
+
       products.clear();
+
       homeModel.products.forEach((element)
       {
+
+
 
        /* List data=[
         ];
@@ -166,76 +188,147 @@ print(categoryId);
       print(error.toString());
       emit(AppErrorState(error.toString()));
     });
+
   }
+
+ searchData(String productsName){
+
+
+ /*  products2.clear();
+   searchList.clear();
+   homeModel.products.clear();*/
+   repository
+       .getHomeData(
+     token: userToken,
+   )
+
+       .then((value) {
+
+     homeModel = HomeModel.fromJson(value.data);
+  /*   products2.clear();
+     searchList.clear();*/
+     searchList=products2.where((search) => search.name.contains(productsName)).toList();
+
+   });
+
+
+
+}
+  ClearData(){
+  searchList.clear();
+  print('clear');
+  print(searchList.length);
+    }
+
+
+
 
   getCategoriesItems() {
 
     products.clear();
 
+    homeModel.products.forEach((element)
+    {
+      List data=[];
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-      products.clear();
-      homeModel.products.forEach((element)
-      {
-
-        List data=[
-        ];
-
-
-
-        if(categoryId==element.categoryId)
-          { print('true');
-          data.addAll({
-            {'name':element.name,'ProductId':element.category,'CatId':element.categoryId,
-              'price':element.price,'imageUrl':element.imageUrl,'description':element.description},
-          });
-
-          data.forEach((element) {
-            products.add(myProduct.fromMap(element));
-          });
-
-          print(products.first.name);
-
-
-          print(categoryId);}
-
-
-
-        favourites.addAll({
-          element.id: element.infavorites
-        });
-        cart.addAll({
-          element.id: element.inCart
-        });
-
-        if(element.inCart)
-        {
-          cartProductsNumber++;
-        }
+      if(categoryId==element.categoryId)
+      { print('true');
+      data.addAll({
+        {'name':element.name,'ProductId':element.category,'CatId':element.categoryId,
+          'price':element.price,'imageUrl':element.imageUrl,'description':element.description},
       });
 
+      data.forEach((element) {
+        products.add(myProduct.fromMap(element));
+      });
 
-      print(categories);
-      print('aaaaaaaaaaaa');
-      emit(AppSuccessState(homeModel));
+      print(products.first.name);
+
+
+      print(categoryId);}
+
+
+
+      favourites.addAll({
+        element.id: element.infavorites
+      });
+      cart.addAll({
+        element.id: element.inCart
+      });
+
+      if(element.inCart)
+      {
+        cartProductsNumber++;
+      }
+    });
+
+
+    print(categories);
+    print('aaaaaaaaaaaa');
+    emit(AppSuccessState(homeModel));
 
 
 
   }
+
+  getCartItems() {
+
+    /*productsCart.clear();*/
+      homeModel.products.forEach((element)
+      {
+
+
+        List dataCart=[];
+
+        if(productsId == element.id)
+          {
+            dataCart.addAll({
+            {'name':element.name,'ProductId':element.id,
+              'price':element.price,'imageUrl':element.imageUrl},
+          }
+
+          );
+
+            dataCart.forEach((element) {
+            productsCart.add(myProductCart.fromMap(element));
+            print('productsCart.toList()');
+            print(productsCart.first.ProductId);
+
+
+
+
+          }
+
+
+          );
+
+
+          ;}
+
+      }
+      );
+
+
+  }
+  getDeleteItems(int produtsId) {
+    print('////////////////////');
+    print(produtsId);
+    print(productsId);
+    print(productsCart);
+    if(productsId==produtsId)
+      {
+        print('true');
+      }else
+        {
+          print('false');
+        }
+
+  /* productsCart.removeWhere((element) => element.ProductId == productsId);*/
+
+  }
+
   CategoriesModel2 categoriesModel2;
 
 
@@ -341,10 +434,10 @@ print(categoryId);
       print(value.data);
       addCartModel = AddCartModel.fromJson(value.data);
 
-      if(addCartModel.status == false)
+     /* if(addCartModel.status == false)
       {
         changeLocalCart(id);
-      }
+      }*/
 
       emit(AppChangeCartSuccessState());
 
@@ -394,6 +487,8 @@ print(categoryId);
 
     emit(AppChangeCartLocalState());
   }
+
+
 }
 
 
@@ -442,3 +537,48 @@ class myProduct{
 
   factory myProduct.fromJson(String,Source)=>myProduct.fromMap(json.decode(Source));
 }
+
+class myProductCart{
+  String name;
+  int ProductId;
+  String imageUrl;
+  dynamic Price;
+  myProductCart({this.name , this.ProductId, this.imageUrl, this.Price,});
+  Map<String,dynamic>toMap(){
+
+    final result=<String,dynamic>{};
+    if(name!=null)
+    {
+      result.addAll({'name':name});
+    }
+    if(ProductId!=null)
+    {
+      result.addAll({'ProductId':ProductId});
+    }
+    if(Price!=null)
+    {
+      result.addAll({'Price':Price});
+    }
+    if(imageUrl!=null)
+    {
+      result.addAll({'imageUrl':imageUrl});
+    }
+
+
+    return result;
+
+  }
+  factory myProductCart.fromMap(Map<String,dynamic>map){
+    return myProductCart(
+        name: map['name'],
+        ProductId: map['ProductId'].hashCode,
+        imageUrl: map['imageUrl'],
+        Price: map['Price'].hashCode,
+    );
+  }
+  StringToJson()=>
+      json.encode(toMap());
+
+  factory myProductCart.fromJson(String,Source)=>myProductCart.fromMap(json.decode(Source));
+}
+

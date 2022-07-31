@@ -11,6 +11,7 @@ import 'package:salla/shared/network/remote/dio_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'layout/home_layout.dart';
+import 'modules/search_screen.dart';
 
 void main() async
 {
@@ -38,7 +39,7 @@ print(username);
   {
     start = SelectLanguageScreen();
   }
- /* start = HomeLayout();*/
+  start = HomeLayout();
   runApp(MyApp(
     translationFile: translation,
     code: appLanguage,
