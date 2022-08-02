@@ -44,8 +44,10 @@ class SingleCategoryScreen2 extends StatelessWidget {
           physics: BouncingScrollPhysics(),
           itemBuilder: (BuildContext context, int index) {
             return InkWell(
+
               onTap: () {
-                navigateTo(context, ItemDetails(model[index].ProductId,model[index].name,model[index].imageUrl,model[index].description),);
+
+                navigateTo(context, ItemDetails(model[index].ProductId,model[index].name,model[index].imageUrl,model[index].description,[],0),);
               },
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

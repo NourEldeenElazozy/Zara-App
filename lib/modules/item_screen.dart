@@ -24,51 +24,102 @@ class ItemDetails extends StatelessWidget {
    String name;
    String image;
   String description;
-  ItemDetails(this.id, this.name, this.image,this.description);
+  List imageList;
+  int Listlength;
+
+  ItemDetails(this.id, this.name, this.image,this.description,this.imageList,this.Listlength);
 
   @override
   Widget build(BuildContext context) {
+    var Imagemodel = AppCubit.get(context).homeModel;
+    print('Listlength');
+    print(Listlength);
+
     if(description==null){description= "";}
 
     return Scaffold(
+
       appBar: AppBar(backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
         title: Text('Zara'),
       ),
       body: Center(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              SizedBox(
-                height: 12,
+        child: Column(
+          children: [
+
+            SingleChildScrollView(
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: 12,
+                  ),
+
+
+
+
+
+
+                  ImageDialog(ItemDetails(id, name, image,description,imageList,Listlength),context),
+                  if(Listlength!=0)
+                    Center(
+
+                      child: Container(
+                          width: double.infinity,
+                          height: 100.0,
+
+
+                          child: ListView.builder(
+
+                            shrinkWrap: true,
+                            scrollDirection: Axis.horizontal,
+                            itemCount:imageList.length,
+                            itemBuilder: (BuildContext context, int index) {
+
+                              return    SizedBox(
+                                width: 200,
+                                child: Image(
+                                  image: NetworkImage(
+                                    'http://abdudashapi-001-site1.htempurl.com/img/${imageList[index]}',
+                                  ),
+                                  //fit: BoxFit.cover,
+                                  height: 250.0,
+                                ),
+                              );
+                            },
+                          )
+                      ),
+                    ),
+
+                  SizedBox(
+                    height: 12,
+                  ),
+                  buildDescriptionItem( ItemDetails(id, name, image,description,imageList,Listlength),context),
+                  SizedBox(
+                    height: 12,
+                  ),
+
+
+
+                  Container(
+
+                    child: ElevatedButton(
+                      style: raisedButtonStyle,
+                      onPressed: ()
+                      {
+
+                        AppCubit.get(context).getCartItems();
+                       AppCubit.get(context).productsId= this.id;
+
+                      },
+                      child: Text('إضافة الي السلة'),
+                    ),
+                  )
+                ],
               ),
 
+            ),
 
 
-              ImageDialog(ItemDetails(id, name, image,description),context),
-
-              SizedBox(
-                height: 12,
-              ),
-              buildDescriptionItem( ItemDetails(id, name, image,description),context),
-              SizedBox(
-                height: 12,
-              ),
-              Container(
-
-                child: ElevatedButton(
-                  style: raisedButtonStyle,
-                  onPressed: ()
-                  {
-                    AppCubit.get(context).getCartItems();
-                   AppCubit.get(context).productsId= this.id;
-
-                  },
-                  child: Text('إضافة الي السلة'),
-                ),
-              )
-            ],
-          ),
-
+          ],
         ),
       ),
     );
@@ -158,3 +209,5 @@ class ItemDetails extends StatelessWidget {
       ),
     );
   }
+
+

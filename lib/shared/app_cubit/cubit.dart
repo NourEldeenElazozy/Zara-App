@@ -83,13 +83,16 @@ class AppCubit extends Cubit<AppStates>
 
 
 
+
   HomeModel homeModel;
+  Images imageModel;
   HomeModel homeModel2;
   Map<int, bool> favourites = {};
   Map<int, int> categories = {};
   Map<int, bool> cart = {};
   int cartProductsNumber = 0;
   List<myProduct> products=[];
+  List<myImages> images=[];
   List<myProductCart> productsCart=[];
   List<Products> products2=[];
   List<Products> searchList=[];
@@ -105,13 +108,6 @@ class AppCubit extends Cubit<AppStates>
 
 
 
-
-
-
-
-
-
-
     emit(AppLoadingState());
 
 
@@ -124,6 +120,7 @@ class AppCubit extends Cubit<AppStates>
         .then((value) {
 
       homeModel = HomeModel.fromJson(value.data);
+      print(  homeModel.products[0].images[3].imageUrl);
 
         homeModel = HomeModel.fromJson(value.data);
         products2.addAll(homeModel.products);
@@ -137,28 +134,6 @@ class AppCubit extends Cubit<AppStates>
 
       homeModel.products.forEach((element)
       {
-
-
-
-       /* List data=[
-        ];
-        categoryId=26;
-        print(categoryId);
-        if(categoryId==element.categoryId)
-
-
-        data.addAll({
-          {'name':element.name,'ProductId':element.category,'CatId':element.categoryId,
-            'price':element.price,'imageUrl':element.imageUrl},
-        });
-
-        data.forEach((element) {
-          products.add(myProduct.fromMap(element));
-        });
-        print('data.length');
-       *//* print(products.first.name);*//*
-        print(products.first);*/
-
 print(categoryId);
         if(element.categoryId==categoryId)
         categories.addAll({
@@ -222,7 +197,48 @@ print(categoryId);
 
 
 
+  getImagesItems() {
 
+    images.clear();
+
+
+        homeModel.products.first.images.forEach((element)
+    {
+      List imageData=[];
+
+
+
+
+      {
+        print('true');
+        imageData.addAll({
+        {'id':element.id,'ProductId':element.productId,'imageUrl':element.imageUrl,
+         },
+      });
+
+        imageData.forEach((element) {
+        images.add(myImages.fromMap(element));
+      });
+        print('images.first.imageUrl');
+      print(images.first.imageUrl);
+
+
+      print(categoryId);}
+
+
+
+
+
+    });
+
+
+    print(categories);
+    print('aaaaaaaaaaaa');
+    emit(AppSuccessState(homeModel));
+
+
+
+  }
   getCategoriesItems() {
 
     products.clear();
@@ -580,5 +596,43 @@ class myProductCart{
       json.encode(toMap());
 
   factory myProductCart.fromJson(String,Source)=>myProductCart.fromMap(json.decode(Source));
+}
+
+class myImages{
+  int id;
+  String imageUrl;
+  int productId;
+  myImages({this.id , this.imageUrl , this.productId});
+  Map<String,dynamic>toMap(){
+
+    final result=<String,dynamic>{};
+    if(id!=null)
+    {
+      result.addAll({'id':id});
+    }
+    if(imageUrl!=null)
+    {
+      result.addAll({'imageUrl':imageUrl});
+    }
+    if(productId!=null)
+    {
+      result.addAll({'productId':productId});
+    }
+
+
+    return result;
+
+  }
+  factory myImages.fromMap(Map<String,dynamic>map){
+    return myImages(
+      id: map['id'].hashCode,
+      productId: map['productId'].hashCode,
+      imageUrl: map['imageUrl'],
+    );
+  }
+  StringToJson()=>
+      json.encode(toMap());
+
+  factory myImages.fromJson(String,Source)=>myImages.fromMap(json.decode(Source));
 }
 

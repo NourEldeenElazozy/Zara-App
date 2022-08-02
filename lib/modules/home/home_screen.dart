@@ -24,6 +24,7 @@ import '../item_screen.dart';
 class HomeScreen extends StatelessWidget {
   String productsName='T';
 
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AppCubit, AppStates>(
@@ -37,10 +38,13 @@ class HomeScreen extends StatelessWidget {
 
 
 
+
         return ConditionalBuilder(
 
           condition: model != null && categories != null ,
+
           builder: (context) => SingleChildScrollView(
+
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -164,6 +168,7 @@ class HomeScreen extends StatelessWidget {
   );
 
   Widget productGridItem({
+
     @required Products model,
     @required BuildContext context,
     @required int index,
@@ -171,7 +176,31 @@ class HomeScreen extends StatelessWidget {
       InkWell(
 
         onTap: (){
-          navigateTo(context, ItemDetails(model.id,model.name,model.imageUrl,model.description),);
+
+
+         int Listlength= model.images.length;
+         List images=[];
+         if (Listlength==0)
+         {
+           images = [];
+         }
+         if (Listlength==1)
+           {
+              images = <String>[model.images[0].imageUrl];
+           }
+         if(Listlength==2)
+             {
+                images = <String>[model.images[0].imageUrl,model.images[1].imageUrl];
+             }
+         if(Listlength==3)
+         {
+            images = <String>[model.images[0].imageUrl,model.images[1].imageUrl,model.images[2].imageUrl];
+         }
+         if(Listlength>=4)
+         {
+            images = <String>[model.images[0].imageUrl,model.images[1].imageUrl,model.images[2].imageUrl,model.images[3].imageUrl];
+         }
+          navigateTo(context, ItemDetails(model.id,model.name,model.imageUrl,model.description,images,Listlength),);
         },
         child: Container(
           color: Colors.white,

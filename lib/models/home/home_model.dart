@@ -1,6 +1,5 @@
 class HomeModel {
   List<Products> products;
-  List<ProductsCategory> productsCategory;
   HomeModel({this.products});
 
   HomeModel.fromJson(Map<String, dynamic> json) {
@@ -40,7 +39,7 @@ class Products {
   String category;
   String favoriteId;
   String favorite;
-  String  images;
+  List<Images>images;
 
   Products(
       {this.id,
@@ -74,7 +73,12 @@ class Products {
     category = json['category'];
     favoriteId = json['favoriteId'];
     favorite = json['favorite'];
-    images = json['images'];
+    if (json['images'] != null) {
+      images = <Images>[];
+      json['images'].forEach((v) {
+        images.add(new Images.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -93,13 +97,31 @@ class Products {
     data['category'] = this.category;
     data['favoriteId'] = this.favoriteId;
     data['favorite'] = this.favorite;
-    data['images'] = this.images;
+    if (this.images != null) {
+      data['images'] = this.images.map((v) => v.toJson()).toList();
+    }
     return data;
   }
 }
-class ProductsCategory {
+
+class Images {
   int id;
-  String ProductName;
-  int CategoryId;
-  ProductsCategory({this.id, this.CategoryId, this.ProductName});
+  String imageUrl;
+  int productId;
+
+  Images({this.id, this.imageUrl, this.productId});
+
+  Images.fromJson(Map<String, dynamic> json) {
+    id = json['id'];
+    imageUrl = json['imageUrl'];
+    productId = json['productId'];
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['id'] = this.id;
+    data['imageUrl'] = this.imageUrl;
+    data['productId'] = this.productId;
+    return data;
+  }
 }
