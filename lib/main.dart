@@ -39,7 +39,7 @@ print(username);
   {
     start = SelectLanguageScreen();
   }
-  start = LoginScreen();
+  start = HomeLayout();
   runApp(MyApp(
     translationFile: translation,
     code: appLanguage,
