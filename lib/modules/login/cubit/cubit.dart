@@ -10,6 +10,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginCubit extends Cubit<LoginStates>
 {
+  String TokenVal;
   final Repository repository;
 
   LoginCubit(this.repository) : super(LoginInitialState());
@@ -32,6 +33,8 @@ class LoginCubit extends Cubit<LoginStates>
         .then((value)
     async {
 
+
+
       userModel = UserModel.fromJson(value.data);
 
       if(userModel.status)
@@ -39,11 +42,17 @@ class LoginCubit extends Cubit<LoginStates>
         emit(LoginSuccessState(userModel));
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('username', username);
-      userToken = prefs.getString('username');
+         userToken = prefs.getString('username');
+
+
+
+
+
+        userToken=value.data['token'];
+        prefs.setString('token', userToken);
+        userToken= prefs.getString('token');
+        print(('token'));
         print(userToken);
-
-
-
       } else
       {
         emit(LoginErrorState(userModel.message));
@@ -56,3 +65,4 @@ class LoginCubit extends Cubit<LoginStates>
     });
   }
 }
+

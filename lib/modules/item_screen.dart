@@ -4,7 +4,13 @@
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:salla/modules/login/login_screen.dart';
+import 'package:salla/modules/register/register_screen.dart';
+import 'package:salla/modules/single_category/single_category_screen2.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
+import 'package:salla/shared/components/components.dart';
+import 'package:salla/shared/components/constants.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ItemDetails extends StatelessWidget {
 
@@ -104,10 +110,21 @@ class ItemDetails extends StatelessWidget {
                     child: ElevatedButton(
                       style: raisedButtonStyle,
                       onPressed: ()
-                      {
+                      async {
+                        SharedPreferences prefs = await SharedPreferences.getInstance();
+                        userToken = prefs.getString('token');
+                        print('token');
+                        print(userToken);
+                        if(userToken!=null){
+                          AppCubit.get(context).getCartItems();
+                          AppCubit.get(context).productsId= this.id;
 
-                        AppCubit.get(context).getCartItems();
-                       AppCubit.get(context).productsId= this.id;
+                          AppCubit.get(context).addCartItem(this.id);
+                        }else{
+                          navigateTo(context, LoginScreen(),);
+                        }
+
+
 
                       },
                       child: Text('إضافة الي السلة'),

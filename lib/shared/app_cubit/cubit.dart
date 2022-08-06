@@ -1,11 +1,13 @@
 import 'dart:convert';
 
 import 'package:dartz/dartz_streaming.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/add_cart/add_cart_model.dart';
 import 'package:salla/models/add_fav/add_fav_model.dart';
-import 'package:salla/models/cart/cart.dart';
+
+import 'package:salla/models/cart/cart2.dart';
 import 'package:salla/models/categories/categories.dart';
 import 'package:salla/models/categories/categories2.dart';
 import 'package:salla/models/categories/categories2.dart';
@@ -13,6 +15,7 @@ import 'package:salla/models/home/home_model.dart';
 import 'package:salla/modules/cart/cart_screen.dart';
 import 'package:salla/modules/categories/categories_screen.dart';
 import 'package:salla/modules/home/home_screen.dart';
+import 'package:salla/modules/login/cubit/cubit.dart';
 import 'package:salla/modules/settings/settings_screen.dart';
 import 'package:salla/shared/app_cubit/states.dart';
 import 'package:salla/shared/components/constants.dart';
@@ -98,13 +101,40 @@ class AppCubit extends Cubit<AppStates>
   List<Products> searchList=[];
 
 
+  final _dio = Dio();
+
+  LoginCubit loginCubit;
+
+  addCartItem(int productid) async {
+    try {
+      print('userToken');
+      print(userToken);
+      final value = userToken;
+      final res = await _dio.post(
+        'http://abdudashapi-001-site1.htempurl.com/api/Carts/add-product/$productid',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $value',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+      print('-----------------------');
+      print(res);
+      print('-----------------------');
+
+
+    } catch (e) {
+      print(e);
+    }
+  }
 
 
 
 
 
 
-  getHomeData() {
+  getHomeData() async {
 
 
 

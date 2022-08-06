@@ -70,12 +70,13 @@ class SettingsScreen extends StatelessWidget {
         ),
         MaterialButton(
           onPressed: ()
-       async {
+         async {
          SharedPreferences prefs = await SharedPreferences.getInstance();
          var username = prefs.getString('username');
-         if( username != null){
+         userToken = prefs.getString('token');
+         if( userToken != null){
            SharedPreferences preferences = await SharedPreferences.getInstance();
-           await preferences.remove('username');
+           await preferences.remove('token');
            showToast(
              text: 'تم تسجيل الخروج بنجاح',
              color: ToastColors.SUCCESS,
