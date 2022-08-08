@@ -47,7 +47,7 @@ class SingleCategoryScreen2 extends StatelessWidget {
 
               onTap: () {
 
-                navigateTo(context, ItemDetails(model[index].ProductId,model[index].name,model[index].imageUrl,model[index].description,[],0),);
+                navigateTo(context, ItemDetails(model[index].ProductId,model[index].name,model[index].imageUrl,model[index].description,[],0,model[index].Price),);
               },
               child: Padding(
                 padding: const EdgeInsets.all(20.0),

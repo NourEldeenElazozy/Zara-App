@@ -6,6 +6,8 @@ const ADD_FAVOURITE = 'favorites';
 
 const ADD_CART = 'carts';
 
+const GET_CART = '/Carts/get-cart';
+
 const GET_CATEGORIES = 'Categories';
 
 const GET_PRODUCTS = 'products';

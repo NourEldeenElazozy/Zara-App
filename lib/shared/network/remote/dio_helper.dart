@@ -43,7 +43,7 @@ class DioImplementation extends DioHelper
     dio.options.headers = {
       'lang': appLanguage,
       'Content-Type': 'application/json',
-      'Authorization': token ?? '',
+      'Authorization':'Bearer $token',
     };
 
     return await dio.post(
@@ -79,7 +79,7 @@ class DioImplementation extends DioHelper
     dio.options.headers = {
       'lang': appLanguage,
       'Content-Type': 'application/json',
-      'Authorization': token ?? '',
+      'Authorization': 'Bearer $token',
     };
 
     return await dio.get(

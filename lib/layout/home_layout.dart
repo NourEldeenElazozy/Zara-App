@@ -12,10 +12,11 @@ class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     print(userToken);
-
+  AppCubit.get(context).getCartData();
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
+        AppCubit.get(context).getCartData();
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
@@ -38,6 +39,7 @@ class HomeLayout extends StatelessWidget {
                       child: new IconButton(
                     icon: new Icon(Icons.search),
                     onPressed: () {
+
                       navigateTo(context, SearchScreen());
                     },
                   )),
@@ -91,12 +93,9 @@ class HomeLayout extends StatelessWidget {
                         3.0,
                       ),
                       child: Text(
-                        AppCubit.get(context).productsCart.length != 0
-                            ? AppCubit.get(context)
-                                .productsCart
-                                .length
-                                .toString()
-                            : '0',
+
+
+                                  '',
                         style: white10bold(),
                       ),
                     ),

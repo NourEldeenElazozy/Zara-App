@@ -10,6 +10,8 @@ import 'package:salla/modules/single_category/single_category_screen2.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/components/components.dart';
 import 'package:salla/shared/components/constants.dart';
+import 'package:salla/shared/styles/colors.dart';
+import 'package:salla/shared/styles/styles.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class ItemDetails extends StatelessWidget {
@@ -29,11 +31,12 @@ class ItemDetails extends StatelessWidget {
    int id;
    String name;
    String image;
+  double price;
   String description;
   List imageList;
   int Listlength;
 
-  ItemDetails(this.id, this.name, this.image,this.description,this.imageList,this.Listlength);
+  ItemDetails(this.id, this.name, this.image,this.description,this.imageList,this.Listlength,this.price);
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +59,7 @@ class ItemDetails extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: 12,
+                    height: 5,
                   ),
 
 
@@ -64,7 +67,7 @@ class ItemDetails extends StatelessWidget {
 
 
 
-                  ImageDialog(ItemDetails(id, name, image,description,imageList,Listlength),context),
+                  ImageDialog(ItemDetails(id, name, image,description,imageList,Listlength,price),context),
                   if(Listlength!=0)
                     Center(
 
@@ -80,25 +83,30 @@ class ItemDetails extends StatelessWidget {
                             itemCount:imageList.length,
                             itemBuilder: (BuildContext context, int index) {
 
-                              return    SizedBox(
-                                width: 200,
-                                child: Image(
-                                  image: NetworkImage(
-                                    'http://abdudashapi-001-site1.htempurl.com/img/${imageList[index]}',
+                              return    Row(
+                                children: [
+                                  SizedBox(
+                                    width: 200,
+                                    child: Image(
+                                      image: NetworkImage(
+                                        'http://abdudashapi-001-site1.htempurl.com/img/${imageList[index]}',
+                                      ),
+                                      //fit: BoxFit.cover,
+                                      height: 100.0,
+                                    ),
+
                                   ),
-                                  //fit: BoxFit.cover,
-                                  height: 250.0,
-                                ),
+
+                                ],
                               );
                             },
                           )
                       ),
                     ),
 
-                  SizedBox(
-                    height: 12,
-                  ),
-                  buildDescriptionItem( ItemDetails(id, name, image,description,imageList,Listlength),context),
+
+
+                  buildDescriptionItem( ItemDetails(id, name, image,description,imageList,Listlength,price),context),
                   SizedBox(
                     height: 12,
                   ),
@@ -116,7 +124,7 @@ class ItemDetails extends StatelessWidget {
                         print('token');
                         print(userToken);
                         if(userToken!=null){
-                          AppCubit.get(context).getCartItems();
+
                           AppCubit.get(context).productsId= this.id;
 
                           AppCubit.get(context).addCartItem(this.id);
@@ -184,11 +192,18 @@ class ItemDetails extends StatelessWidget {
           Padding(
             padding:
             const EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 8),
-            child: Text(
-              item.name,
-              style: Theme.of(context).textTheme.headline6.copyWith(
-                color: Colors.black,
-              ),
+            child: Column(
+              children: [
+                Text(
+                  item.name+'     ${item.price.round()} د.ل' ,
+                  style: Theme.of(context).textTheme.headline6.copyWith(
+                    color: Colors.black,
+                  ),
+                ),
+                SizedBox(height: 2,),
+
+
+              ],
             ),
           ),
           Padding(

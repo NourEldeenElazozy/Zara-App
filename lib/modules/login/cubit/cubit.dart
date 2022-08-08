@@ -51,7 +51,7 @@ class LoginCubit extends Cubit<LoginStates>
         userToken=value.data['token'];
         prefs.setString('token', userToken);
         userToken= prefs.getString('token');
-        print(('token'));
+        print(('tokenn'));
         print(userToken);
       } else
       {

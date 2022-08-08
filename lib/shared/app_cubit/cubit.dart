@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:salla/models/add_cart/add_cart_model.dart';
 import 'package:salla/models/add_fav/add_fav_model.dart';
+import 'package:salla/models/cart/cart.dart';
 
 import 'package:salla/models/cart/cart2.dart';
 import 'package:salla/models/categories/categories.dart';
@@ -21,6 +22,7 @@ import 'package:salla/shared/app_cubit/states.dart';
 import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/language/app_language_model.dart';
 import 'package:salla/shared/network/repository.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class AppCubit extends Cubit<AppStates>
 {
@@ -88,6 +90,8 @@ class AppCubit extends Cubit<AppStates>
 
 
   HomeModel homeModel;
+  Cart carts;
+  /*Cart carts;*/
   Images imageModel;
   HomeModel homeModel2;
   Map<int, bool> favourites = {};
@@ -99,13 +103,16 @@ class AppCubit extends Cubit<AppStates>
   List<myProductCart> productsCart=[];
   List<Products> products2=[];
   List<Products> searchList=[];
-
+  List dataCart=[];
+  Cart user;
 
   final _dio = Dio();
 
   LoginCubit loginCubit;
 
   addCartItem(int productid) async {
+
+    var product_name;
     try {
       print('userToken');
       print(userToken);
@@ -120,8 +127,67 @@ class AppCubit extends Cubit<AppStates>
         ),
       );
       print('-----------------------');
-      print(res);
+      var product=res.data;
+       product_name= product['data']['product'];
+
+      final validMap =
+      json.decode(json.encode(product_name)) as Map<String, dynamic>;
+      print('map');
+      print(validMap['id']);
       print('-----------------------');
+
+      List list = [];
+
+
+
+
+
+    } catch (e) {
+      print(e);
+    }
+  }
+  removeCartItem(int productid) async {
+
+    var product_name;
+    try {
+      print('userToken');
+      print(userToken);
+      final value = userToken;
+      final res = await _dio.delete(
+        'http://abdudashapi-001-site1.htempurl.com/api/Carts/remove-product/$productid',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $value',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+      print('-----------------------');
+      var product=res.data;
+
+    } catch (e) {
+      print(e);
+    }
+  }
+  doneCart(int Cartid) async {
+
+
+    try {
+      print('userToken');
+      print(userToken);
+      final value = userToken;
+      final res = await _dio.post(
+        'http://abdudashapi-001-site1.htempurl.com/api/Orders?cartId=$Cartid',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $value',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+      print('////////////////////////');
+      print(res);
+      print('////////////////////////');
 
 
     } catch (e) {
@@ -134,7 +200,8 @@ class AppCubit extends Cubit<AppStates>
 
 
 
-  getHomeData() async {
+
+  getHomeData()  {
 
 
 
@@ -150,10 +217,15 @@ class AppCubit extends Cubit<AppStates>
         .then((value) {
 
       homeModel = HomeModel.fromJson(value.data);
-      print(  homeModel.products[0].images[3].imageUrl);
+      carts = Cart.fromJson(value.data);
+
+     /*
+      print(  homeModel.products[0].images[3].imageUrl);*/
 
         homeModel = HomeModel.fromJson(value.data);
         products2.addAll(homeModel.products);
+         print('products2.length');
+        print(products2.length);
 
 
 
@@ -195,7 +267,56 @@ print(categoryId);
     });
 
   }
+  getCartData()   async {
 
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    userToken= prefs.getString('token');
+    final value = userToken;
+
+if (userToken!=null)
+  {
+
+    print('userToken2');
+    print(userToken);
+
+ _dio.get(
+      'http://abdudashapi-001-site1.htempurl.com/api/Carts/get-cart/',
+      options: Options(
+        headers: {
+          'Authorization': 'Bearer $value',
+          'Content-Type': 'application/json',
+        },
+      ),
+    )
+
+
+
+
+
+        .then((value) {
+      print('value.data');
+      print(value.data);
+
+      carts = Cart.fromJson(value.data);
+      /*
+      print(  homeModel.products[0].images[3].imageUrl);*/
+
+
+
+
+
+      emit(AppSuccessState(homeModel));
+
+      print(value.data.toString());
+    }).catchError((error) {
+      print('error.toString()');
+      print(error.toString());
+      emit(AppErrorState(error.toString()));
+    });
+  }else{
+  carts.productsCarts.clear();
+  }
+  }
  searchData(String productsName){
 
 
@@ -219,11 +340,11 @@ print(categoryId);
 
 
 }
-  ClearData(){
+  /*ClearData(){
   searchList.clear();
   print('clear');
   print(searchList.length);
-    }
+    }*/
 
 
 
@@ -319,45 +440,7 @@ print(categoryId);
 
   }
 
-  getCartItems() {
 
-    /*productsCart.clear();*/
-      homeModel.products.forEach((element)
-      {
-
-
-        List dataCart=[];
-
-        if(productsId == element.id)
-          {
-            dataCart.addAll({
-            {'name':element.name,'ProductId':element.id,
-              'price':element.price,'imageUrl':element.imageUrl},
-          }
-
-          );
-
-            dataCart.forEach((element) {
-            productsCart.add(myProductCart.fromMap(element));
-            print('productsCart.toList()');
-            print(productsCart.first.ProductId);
-
-
-
-
-          }
-
-
-          );
-
-
-          ;}
-
-      }
-      );
-
-
-  }
   getDeleteItems(int produtsId) {
     print('////////////////////');
     print(produtsId);
@@ -538,6 +621,8 @@ print(categoryId);
 }
 
 
+
+
 class myProduct{
   String name;
   int ProductId;
@@ -666,3 +751,14 @@ class myImages{
   factory myImages.fromJson(String,Source)=>myImages.fromMap(json.decode(Source));
 }
 
+class CartItems2 {
+  String name;
+  int id;
+  String imageUrl;
+  dynamic price;
+  CartItems2({this.name, this.id, this.price, this.imageUrl});
+  @override
+  String toString() {
+    return '{ ${this.name}, ${this.price} }';
+  }
+}

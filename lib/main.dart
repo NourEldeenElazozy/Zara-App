@@ -69,7 +69,7 @@ class MyApp extends StatelessWidget
           create: (context) => di<AppCubit>()..setLanguage(
             translationFile: translationFile,
             code: code,
-          )..getHomeData()..getCategories()..getCart(),
+          )..getHomeData()..getCategories()..getCartData(),
         ),
       ],
       child: BlocConsumer<AppCubit, AppStates>(

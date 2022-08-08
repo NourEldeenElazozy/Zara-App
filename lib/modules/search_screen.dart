@@ -82,7 +82,7 @@ class _SearchScreenState extends State<SearchScreen> {
                return InkWell(
                  onTap: () {
 
-                  navigateTo(context, ItemDetails(searchModel[index].id,searchModel[index].name,searchModel[index].imageUrl,searchModel[index].description,[],0),);
+                  navigateTo(context, ItemDetails(searchModel[index].id,searchModel[index].name,searchModel[index].imageUrl,searchModel[index].description,[],0,searchModel[index].price),);
                  },
                  child: Padding(
                    padding: const EdgeInsets.all(20.0),

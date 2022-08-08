@@ -22,9 +22,10 @@ abstract class Repository {
     @required String token,
   });
 
-  Future<Response> getCartData({
-    @required String token,
-  });
+  Future<Response> getCartData(
+
+
+      {@required String token,});
 
   Future<Response> getSingleCategory({
    /* @required String token,*/
@@ -168,7 +169,7 @@ class RepoImplementation extends Repository {
   }) async
   {
     return await dioHelper.getData(
-      url: ADD_CART,
+      url: GET_CART,
       token: token,
     );
   }

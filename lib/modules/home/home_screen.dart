@@ -31,6 +31,7 @@ class HomeScreen extends StatelessWidget {
       listener: (context, state) {},
       builder: (context, state) {
         var model = AppCubit.get(context).homeModel;
+
         var categories = AppCubit.get(context).categoriesModel2;
         var productsName = AppCubit.get(context).searchData(this.productsName);
 
@@ -200,7 +201,7 @@ class HomeScreen extends StatelessWidget {
          {
             images = <String>[model.images[0].imageUrl,model.images[1].imageUrl,model.images[2].imageUrl,model.images[3].imageUrl];
          }
-          navigateTo(context, ItemDetails(model.id,model.name,model.imageUrl,model.description,images,Listlength),);
+          navigateTo(context, ItemDetails(model.id,model.name,model.imageUrl,model.description,images,Listlength,model.price),);
         },
         child: Container(
           color: Colors.white,
