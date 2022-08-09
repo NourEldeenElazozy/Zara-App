@@ -59,8 +59,9 @@ class LoginScreen extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Image(
-                            image: AssetImage('assets/images/logo.jpg'),
-                            height: 150.0,
+                            image: AssetImage('assets/images/logo.png'),
+                            height: 180.0,
+
                           ),
                           Text(
                             appLang(context).loginTitle,

@@ -64,24 +64,22 @@ class _RegisterScreenState extends State<RegisterScreen> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image(
-                        image: AssetImage('assets/images/logo.jpg'),
+                        image: AssetImage('assets/images/logo.png'),
                         height: 150.0,
                       ),
                       Text(
-                        appLang(context).loginTitle,
+                        appLang(context).registerNow,
                         style: black20bold(),
                       ),
                       Text(
                         appLang(context).loginSubTitle,
                       ),
-                      SizedBox(
-                        height: 20.0,
-                      ),
+
                       TextFormField(
                         controller: userNameController,
                         validator: (value) {
                           if (value.isEmpty) {
-                            return appLang(context).user_name;
+                            return appLang(context).emailValidation;
                           }
                           return null;
                         },
@@ -100,7 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         controller: phoneNumberController,
                         validator: (value) {
                           if (value.isEmpty) {
-                            return appLang(context).phone;
+                            return 'يرجي إدخال رقم الهاتف';
                           }
                           return null;
                         },
@@ -152,7 +150,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         obscureText: _isObscure,
                         validator: (value) {
                           if (value.isEmpty) {
-                            return appLang(context).confirmPassword;
+                            return appLang(context).passwordValidation;
                           }
                           return null;
                         },
