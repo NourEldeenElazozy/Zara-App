@@ -629,7 +629,7 @@ class myProduct{
   int CatId;
   String imageUrl;
   String description;
-  dynamic price;
+  double price;
   myProduct({this.name , this.ProductId,this.CatId, this.imageUrl, this.price,this.description});
   Map<String,dynamic>toMap(){
 
@@ -664,7 +664,7 @@ class myProduct{
       ProductId: map['ProductId'].hashCode,
       CatId: map['CatId'].hashCode,
       imageUrl: map['imageUrl'],
-        price: map['price'].hashCode,
+        price: map['price'],
       description: map['description']
     );
   }
