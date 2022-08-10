@@ -403,15 +403,15 @@ if (userToken!=null)
       if(categoryId==element.categoryId)
       { print('true');
       data.addAll({
-        {'name':element.name,'ProductId':element.category,'CatId':element.categoryId,
+        {'name':element.name,'ProductId':element.id,'CatId':element.categoryId,
           'price':element.price,'imageUrl':element.imageUrl,'description':element.description},
       });
 
       data.forEach((element) {
         products.add(myProduct.fromMap(element));
       });
-
-      print(products.first.name);
+      print('products.first.ProductId');
+      print(data.first);
 
 
       print(categoryId);}
@@ -629,8 +629,8 @@ class myProduct{
   int CatId;
   String imageUrl;
   String description;
-  dynamic Price;
-  myProduct({this.name , this.ProductId,this.CatId, this.imageUrl, this.Price,this.description});
+  dynamic price;
+  myProduct({this.name , this.ProductId,this.CatId, this.imageUrl, this.price,this.description});
   Map<String,dynamic>toMap(){
 
     final result=<String,dynamic>{};
@@ -638,6 +638,10 @@ class myProduct{
       {
         result.addAll({'name':name});
       }
+    if(price!=null)
+    {
+      result.addAll({'Price':price});
+    }
     if(ProductId!=null)
     {
       result.addAll({'ProductId':ProductId});
@@ -650,6 +654,7 @@ class myProduct{
   {
   result.addAll({'description':description});
   }
+
     return result;
 
   }
@@ -659,7 +664,7 @@ class myProduct{
       ProductId: map['ProductId'].hashCode,
       CatId: map['CatId'].hashCode,
       imageUrl: map['imageUrl'],
-      Price: map['Price'].hashCode,
+        price: map['price'].hashCode,
       description: map['description']
     );
   }

@@ -47,7 +47,7 @@ class SingleCategoryScreen2 extends StatelessWidget {
 
               onTap: () {
 
-                navigateTo(context, ItemDetails(model[index].ProductId,model[index].name,model[index].imageUrl,model[index].description,[],0,model[index].Price),);
+                navigateTo(context, ItemDetails(model[index].ProductId,model[index].name,model[index].imageUrl,model[index].description,[],0,model[index].price),);
               },
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -104,7 +104,7 @@ class SingleCategoryScreen2 extends StatelessWidget {
                                           Row(
                                             children: [
                                               Text(
-                                                '${model[index].Price.round()}',
+                                                '${model[index].price.round()}',
                                                 style: black16bold().copyWith(
                                                   height: .5,
                                                   color: defaultColor,

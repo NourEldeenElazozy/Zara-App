@@ -13,9 +13,17 @@ import 'package:salla/shared/network/local/cache_helper2.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  bool _isObscure = true;
   var emailController = TextEditingController();
+
   var passwordController = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -94,6 +102,7 @@ class LoginScreen extends StatelessWidget {
                           ),
                           TextFormField(
                             controller: passwordController,
+                            obscureText: _isObscure,
                             validator: (value) {
                               if (value.isEmpty) {
                                 return appLang(context).passwordValidation;
@@ -104,8 +113,14 @@ class LoginScreen extends StatelessWidget {
                               prefixIcon: Icon(
                                 IconBroken.Lock,
                               ),
-                              suffixIcon: Icon(
-                                IconBroken.Show,
+                              suffixIcon: IconButton(
+                                icon: Icon(  _isObscure ? Icons.visibility_off : Icons.visibility),
+                                onPressed: (){
+                                  setState(() {
+                                    _isObscure = !_isObscure;
+                                  });
+                                },
+
                               ),
                               labelText: appLang(context).password,
                               border: OutlineInputBorder(),

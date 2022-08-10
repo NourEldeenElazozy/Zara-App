@@ -21,25 +21,26 @@ void main() async
 
   appLanguage = await getAppLanguage();
   SharedPreferences prefs = await SharedPreferences.getInstance();
-  var username = prefs.getString('username');
-print(username);
-  userToken = await getUserToken();
+  userToken= prefs.getString('token');
 
+
+  print('userToken-main');
+  print(userToken);
   String translation = await getTranslationFile(appLanguage);
 
   Widget start;
 
-  if(appLanguage != null && username != null)
+  if(appLanguage != null && userToken != null)
   {
     start = HomeLayout();
-  } else if(appLanguage != null && username == null)
+  } else if(appLanguage != null && userToken == null)
   {
     start = HomeLayout();
   } else
   {
     start = SelectLanguageScreen();
   }
-  start = HomeLayout();
+  /*start = HomeLayout();*/
   runApp(MyApp(
     translationFile: translation,
     code: appLanguage,

@@ -130,7 +130,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             IconBroken.Lock,
                           ),
                           suffixIcon: IconButton(
-                            icon: Icon(  _isObscure ? Icons.visibility : Icons.visibility_off),
+                            icon: Icon( _isObscure ? Icons.visibility_off : Icons.visibility),
                             onPressed: (){
                               setState(() {
                                 _isObscure = !_isObscure;
@@ -161,7 +161,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                             IconBroken.Lock,
                           ),
                           suffixIcon: IconButton(
-                            icon: Icon(  _isObscure ? Icons.visibility : Icons.visibility_off),
+                            icon: Icon( _isObscure ? Icons.visibility_off : Icons.visibility),
                             onPressed: (){
                               setState(() {
                                 _isObscure = !_isObscure;
