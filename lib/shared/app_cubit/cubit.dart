@@ -24,14 +24,19 @@ import 'package:salla/shared/language/app_language_model.dart';
 import 'package:salla/shared/network/repository.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+
+
+//الكلاس المسؤول عن ادارة الكيوبت وربطة بscreens
 class AppCubit extends Cubit<AppStates>
 {
   final Repository repository;
 
   AppCubit(this.repository) : super(AppInitialState());
 
+  //اخذ نسخة من لكيوبت لأستخدامها في اي كلاس
   static AppCubit get(context) => BlocProvider.of(context);
 
+  //list of Language
   List<bool> selectedLanguage =
   [
     false,
@@ -57,7 +62,7 @@ class AppCubit extends Cubit<AppStates>
 
   AppLanguageModel languageModel;
   TextDirection appDirection = TextDirection.ltr;
-
+//setLanguage Function
   Future<void> setLanguage({
     @required String translationFile,
     @required String code,
@@ -67,7 +72,9 @@ class AppCubit extends Cubit<AppStates>
 
     emit(AppSetLanguageState());
   }
+//end function
 
+  //ليست خاصة بالأزرار الخاصة بالويدجت التي تظهر في القائمة السفلية في الابلكيشن
   List<Widget> bottomWidgets = [
     HomeScreen(),
     CategoriesScreen(),
@@ -89,8 +96,8 @@ class AppCubit extends Cubit<AppStates>
 
 
 
-  HomeModel homeModel;
-  Cart carts;
+  HomeModel homeModel; //اخذ نسخة من كلاس HomeModel
+  Cart carts; //اخذ نسخة من كلاس Cart
   /*Cart carts;*/
   Images imageModel;
   HomeModel homeModel2;
@@ -106,10 +113,13 @@ class AppCubit extends Cubit<AppStates>
   List dataCart=[];
   Cart user;
 
-  final _dio = Dio();
+  final _dio = Dio(); //تعريف مكتبة الديو للأتصال بالApi
 
   LoginCubit loginCubit;
 
+
+  //الدالة الخاصة بإضافة اصناف الي االسلة
+  //يتم تمرير رقم الصنف الي الدالة لأضفتها الي السلة
   addCartItem(int productid) async {
 
     var product_name;
@@ -146,6 +156,9 @@ class AppCubit extends Cubit<AppStates>
       print(e);
     }
   }
+
+  //الدالة الخاصة بإزالة اصناف الي االسلة
+  //يتم تمرير رقم الصنف الي الدالة لإزالته الي السلة
   removeCartItem(int productid) async {
 
     var product_name;
@@ -169,6 +182,9 @@ class AppCubit extends Cubit<AppStates>
       print(e);
     }
   }
+
+  //الدالة الخاصةبإتمام الطلب
+  //يتم تمرير رقم السلة الي الدالة لإتمام الطلب
   doneCart(int Cartid) async {
 
 
@@ -200,6 +216,7 @@ class AppCubit extends Cubit<AppStates>
 
 
 
+  //الدالة الخاصة بجلب جميع الاصناف وعرضها في الصفحة الرئيسية
 
   getHomeData()  {
 
@@ -267,6 +284,8 @@ print(categoryId);
     });
 
   }
+
+  //الدالة الخاصة بجلب جميع الاصناف الموجودة في السلة وعرضها في صفحة السلة
   getCartData()   async {
 
     SharedPreferences prefs = await SharedPreferences.getInstance();
@@ -317,6 +336,8 @@ if (userToken!=null)
   carts.productsCarts.clear();
   }
   }
+
+  //الدالة الخاصة بالبحث عن الصنف عن طريق تمرير اسم الصنف
  searchData(String productsName){
 
 
@@ -347,7 +368,7 @@ if (userToken!=null)
     }*/
 
 
-
+//الدالة الخاصة بجلب الصور الخاصة بالمنتجات
   getImagesItems() {
 
     images.clear();
@@ -390,6 +411,8 @@ if (userToken!=null)
 
 
   }
+
+  //الدالة الخاصة بجلب الاصناف حسب التصنيفات
   getCategoriesItems() {
 
     products.clear();
@@ -441,7 +464,7 @@ if (userToken!=null)
   }
 
 
-  getDeleteItems(int produtsId) {
+  /*getDeleteItems(int produtsId) {
     print('////////////////////');
     print(produtsId);
     print(productsId);
@@ -454,16 +477,16 @@ if (userToken!=null)
           print('false');
         }
 
-  /* productsCart.removeWhere((element) => element.ProductId == productsId);*/
+  *//* productsCart.removeWhere((element) => element.ProductId == productsId);*//*
 
-  }
+  }*/
 
   CategoriesModel2 categoriesModel2;
 
 
   CategoriesModel categoriesModel;
 
-
+//الدالة الخاصة بجلب جميع التصنيفات
   getCategories()
   {
 

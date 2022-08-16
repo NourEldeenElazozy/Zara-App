@@ -1,3 +1,6 @@
+//Cart Model
+//الكلاس المسؤول عن تحويل الداتا القادمة من Api الي Json
+
 class Cart {
   int id;
   List<ProductsCarts> productsCarts;

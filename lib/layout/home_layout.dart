@@ -8,6 +8,8 @@ import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
 
+
+//الصفحة الرئيسية التي ينطلق منها الابلكيشن بعد الMain
 class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

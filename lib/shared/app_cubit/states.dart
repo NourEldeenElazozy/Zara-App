@@ -1,5 +1,7 @@
 import 'package:salla/models/home/home_model.dart';
 
+
+//الكلاس الخاص بتخزين جميع حالات الكيوبت
 abstract class AppStates {}
 
 class AppInitialState extends AppStates {}

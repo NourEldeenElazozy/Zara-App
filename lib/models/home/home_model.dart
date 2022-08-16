@@ -1,3 +1,6 @@
+//Home Model
+//الكلاس المسؤول عن تحويل الداتا القادمة من Api الي Json
+
 class HomeModel {
   List<Products> products;
   HomeModel({this.products});

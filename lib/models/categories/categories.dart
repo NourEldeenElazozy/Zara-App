@@ -1,3 +1,6 @@
+//Categories Model
+//الكلاس المسؤول عن تحويل الداتا القادمة من Api الي Json
+
 class CategoriesModel {
   bool status;
   String message;
