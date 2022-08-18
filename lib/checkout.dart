@@ -14,7 +14,7 @@ import 'package:salla/shared/network/local/cache_helper2.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
 
-class CheckOut extends StatelessWidget {
+class CheckOut extends StatefulWidget {
 
 
 
@@ -24,10 +24,15 @@ class CheckOut extends StatelessWidget {
 
 
 
+  @override
+  _CheckOutState createState() => _CheckOutState();
+}
+
+class _CheckOutState extends State<CheckOut> {
   var addressController = TextEditingController();
 
-
-
+  int _radioSelected = 1;
+  String _radioVal;
   var formKey = GlobalKey<FormState>();
 
   @override
@@ -42,20 +47,10 @@ class CheckOut extends StatelessWidget {
           create: (BuildContext context) => di<LoginCubit>(),
           child: BlocConsumer<LoginCubit, LoginStates>(
             listener: (context, state) {
-              if (state is LoginSuccessState) {
 
 
 
 
-              }
-
-
-              if (state is LoginErrorState) {
-                showToast(
-                  text: 'خطاء في اسم المستخدم او كلمة المرور',
-                  color: ToastColors.ERROR,
-                );
-              }
 
             },
             builder: (context, state) {
@@ -96,6 +91,42 @@ class CheckOut extends StatelessWidget {
                           SizedBox(
                             height: 10.0,
                           ),
+                          Padding(
+                            padding: const EdgeInsets.only(left:230),
+                            child: Text(
+                              'طريقة الدفع',
+                              style: TextStyle(fontSize: 15,color: Colors.indigo),
+                            ),
+                          ),
+                          ListTile(
+                            title: const Text('الدفع عند الإستلام'),
+                            leading:  Radio(
+                              value: 1,
+                              groupValue: _radioSelected,
+                              activeColor: Colors.blue,
+                              onChanged: (value) {
+                                setState(() {
+                                  _radioSelected = value;
+                                  _radioVal = 'cash';
+                                });
+                              },
+                            ),
+                          ),
+                          ListTile(
+                            title: const Text('حوالة مصرفية'),
+                            leading:  Radio(
+                              value: 2,
+                              groupValue: _radioSelected,
+                              activeColor: Colors.blue,
+                              onChanged: (value) {
+                                setState(() {
+                                  _radioSelected = value;
+                                  _radioVal = 'cash';
+                                });
+                              },
+                            ),
+                          ),
+
 
                           SizedBox(
                             height: 20.0,
@@ -140,4 +171,4 @@ class CheckOut extends StatelessWidget {
       ),
     );
   }
-  }
+}
