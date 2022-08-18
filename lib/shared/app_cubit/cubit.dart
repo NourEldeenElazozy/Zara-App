@@ -185,7 +185,7 @@ class AppCubit extends Cubit<AppStates>
 
   //الدالة الخاصةبإتمام الطلب
   //يتم تمرير رقم السلة الي الدالة لإتمام الطلب
-  doneCart(int Cartid) async {
+  doneCart(int Cartid , String address) async {
 
 
     try {
@@ -193,7 +193,7 @@ class AppCubit extends Cubit<AppStates>
       print(userToken);
       final value = userToken;
       final res = await _dio.post(
-        'http://abdudashapi-001-site1.htempurl.com/api/Orders?cartId=$Cartid',
+        'http://abdudashapi-001-site1.htempurl.com/api/Orders?cartId=$Cartid &address=$address',
         options: Options(
           headers: {
             'Authorization': 'Bearer $value',

@@ -17,6 +17,8 @@ import 'package:salla/shared/styles/colors.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
 
+import '../../checkout.dart';
+
 class CartScreen extends StatefulWidget {
 
 
@@ -230,20 +232,13 @@ class _CartScreenState extends State<CartScreen> {
             ),
             onPressed: (){
 
-
-              AppCubit.get(context).doneCart(cartsmodel.id);
-              Fluttertoast.showToast(
-                  msg: "تمت اضافة الطلبية بنجاح",
-                  toastLength: Toast.LENGTH_SHORT,
-                  gravity: ToastGravity.CENTER,
-                  timeInSecForIosWeb: 3,
-                  backgroundColor: Colors.green,
-                  textColor: Colors.white,
-                  fontSize: 16.0
+              navigateTo(
+                context,
+                CheckOut(),
               );
 
             },
-          child: Text('إتمام الطلب',style: TextStyle(color: Colors.white),),
+          child: Text('التقدم لإتمام الطلب',style: TextStyle(color: Colors.white),),
           ),
           width: double.infinity,
           height: 50,
