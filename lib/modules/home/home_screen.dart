@@ -215,12 +215,14 @@ class HomeScreen extends StatelessWidget {
                 child: Stack(
                   alignment: AlignmentDirectional.bottomEnd,
                   children: [
-                    Image(
-                      image: NetworkImage(
-                        'http://abdudashapi-001-site1.htempurl.com/img/${model.imageUrl}',
+                    Center(
+                      child: Image(
+                        image: NetworkImage(
+                          'http://abdudashapi-001-site1.htempurl.com/img/${model.imageUrl}',
+                        ),
+                        //fit: BoxFit.cover,
+                        height: 250.0,
                       ),
-                      //fit: BoxFit.cover,
-                      height: 250.0,
                     ),
                 /*    Padding(
                       padding: const EdgeInsets.all(8.0),

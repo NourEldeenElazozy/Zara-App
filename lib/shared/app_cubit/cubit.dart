@@ -193,7 +193,7 @@ class AppCubit extends Cubit<AppStates>
       print(userToken);
       final value = userToken;
       final res = await _dio.post(
-        'http://abdudashapi-001-site1.htempurl.com/api/Orders?cartId=$Cartid &address=$address',
+        'http://abdudashapi-001-site1.htempurl.com/api/Orders?cartId=$Cartid&address=$address',
         options: Options(
           headers: {
             'Authorization': 'Bearer $value',
@@ -201,9 +201,9 @@ class AppCubit extends Cubit<AppStates>
           },
         ),
       );
-      print('////////////////////////');
-      print(res);
-      print('////////////////////////');
+      print('caaaaaaaaaaaaaaaaaaart');
+      print(res.data);
+      print('caaaaaaaaaaaaaaaaaaart');
 
 
     } catch (e) {
