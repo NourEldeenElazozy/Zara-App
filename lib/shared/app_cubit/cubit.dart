@@ -128,7 +128,7 @@ class AppCubit extends Cubit<AppStates>
       print(userToken);
       final value = userToken;
       final res = await _dio.post(
-        'http://abdudashapi-001-site1.htempurl.com/api/Carts/add-product/$productid',
+        'http://secondapi22-001-site1.atempurl.com/api/Carts/add-product/$productid',
         options: Options(
           headers: {
             'Authorization': 'Bearer $value',
@@ -167,7 +167,7 @@ class AppCubit extends Cubit<AppStates>
       print(userToken);
       final value = userToken;
       final res = await _dio.delete(
-        'http://abdudashapi-001-site1.htempurl.com/api/Carts/remove-product/$productid',
+        'http://secondapi22-001-site1.atempurl.com/api/Carts/remove-product/$productid',
         options: Options(
           headers: {
             'Authorization': 'Bearer $value',
@@ -193,7 +193,7 @@ class AppCubit extends Cubit<AppStates>
       print(userToken);
       final value = userToken;
       final res = await _dio.post(
-        'http://abdudashapi-001-site1.htempurl.com/api/Orders?cartId=$Cartid&address=$address',
+        'http://secondapi22-001-site1.atempurl.com/api/Orders?cartId=$Cartid&address=$address',
         options: Options(
           headers: {
             'Authorization': 'Bearer $value',
@@ -299,7 +299,7 @@ if (userToken!=null)
     print(userToken);
 
  _dio.get(
-      'http://abdudashapi-001-site1.htempurl.com/api/Carts/get-cart/',
+      'http://secondapi22-001-site1.atempurl.com/api/Carts/get-cart/',
       options: Options(
         headers: {
           'Authorization': 'Bearer $value',

@@ -89,7 +89,7 @@ class ItemDetails extends StatelessWidget {
                                     width: 200,
                                     child: Image(
                                       image: NetworkImage(
-                                        'http://abdudashapi-001-site1.htempurl.com/img/${imageList[index]}',
+                                        'http://secondapi22-001-site1.atempurl.com/img/${imageList[index]}',
                                       ),
                                       //fit: BoxFit.cover,
                                       height: 100.0,
@@ -233,7 +233,7 @@ class ItemDetails extends StatelessWidget {
         child:  Image(
           image: NetworkImage(
 
-          'http://abdudashapi-001-site1.htempurl.com/img/${item.image}',
+          'http://secondapi22-001-site1.atempurl.com/img/${item.image}',
           ),
           //fit: BoxFit.cover,
           height: 250.0,

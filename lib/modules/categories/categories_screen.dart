@@ -61,7 +61,7 @@ class CategoriesScreen extends StatelessWidget {
               ),
               image: DecorationImage(
                 image: NetworkImage(
-                  'http://abdudashapi-001-site1.htempurl.com/img/${model.imageUrl}',),
+                  'http://secondapi22-001-site1.atempurl.com/img/${model.imageUrl}',),
                 fit: BoxFit.cover,
               ),
             ),
