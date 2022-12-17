@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1038723326944",
+    "project_id": "push-notification-nour-eldeen",
+    "storage_bucket": "push-notification-nour-eldeen.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1038723326944:android:5a056b5b0ed606dae24185",
+        "android_client_info": {
+          "package_name": "com.salla.salla"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1038723326944-kd248jctfalig7j28mp8lll1us0h9fb3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.salla.salla",
+            "certificate_hash": "43d1f23d11a0dcb8dc885cd6d392ed255ca48075"
+          }
+        },
+        {
+          "client_id": "1038723326944-qu6le0ii6ioddlpm02gahbfuvl1nltqq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB0wasLqLTGIrchKms6VhxtQpzfxBSiCHE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1038723326944-qu6le0ii6ioddlpm02gahbfuvl1nltqq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
