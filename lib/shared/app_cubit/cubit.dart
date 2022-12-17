@@ -29,7 +29,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 //الكلاس المسؤول عن ادارة الكيوبت وربطة بscreens
 class AppCubit extends Cubit<AppStates>
 {
+  double Evaluations=0;
   final Repository repository;
+  double sum=0.0;
+  List <dynamic> comments=[];
+  List <dynamic> colors=[];
+  List <dynamic> sizes=[];
 
   AppCubit(this.repository) : super(AppInitialState());
 
@@ -85,6 +90,7 @@ class AppCubit extends Cubit<AppStates>
   int categoryId;
   int productsId;
   String productsName;
+  double rating=0.0;
 
   int currentIndex = 0;
 
@@ -120,15 +126,16 @@ class AppCubit extends Cubit<AppStates>
 
   //الدالة الخاصة بإضافة اصناف الي االسلة
   //يتم تمرير رقم الصنف الي الدالة لأضفتها الي السلة
-  addCartItem(int productid) async {
+  addCartItem(int productid,int colorId , int sizeId) async {
 
     var product_name;
     try {
-      print('userToken');
-      print(userToken);
+      //print('userToken');
+      //print(userToken);
+      print('-----------------------');
       final value = userToken;
       final res = await _dio.post(
-        'http://secondapi22-001-site1.atempurl.com/api/Carts/add-product/$productid',
+        'http://secommerce-001-site1.etempurl.com/api/Carts/add-product/$productid?colorId=$colorId&sizeId=$sizeId' ,
         options: Options(
           headers: {
             'Authorization': 'Bearer $value',
@@ -157,17 +164,228 @@ class AppCubit extends Cubit<AppStates>
     }
   }
 
+  Future<double>getEvaluations(int productsId) async {
+
+
+    try {
+     // print('userToken');
+      //print(userToken);
+      final value = userToken;
+      final res = await _dio.get(
+        'http://secommerce-001-site1.etempurl.com/api/Evaluations/$productsId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $value',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      print('Evaluations2');
+      print(res.data);
+      sum = res.data.toDouble();
+print(sum);
+
+
+
+
+
+
+
+    } catch (e) {
+      print(e);
+    }
+    return sum;
+  }
+
+  Future<List>getComments({int productsId}) async {
+
+    try {
+      this.productsId=productsId;
+      //print('userToken');
+      //print(userToken);
+      final value = userToken;
+      final res = await _dio.get(
+        'http://secommerce-001-site1.etempurl.com/api/Comments/$productsId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $value',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      print('productsId');
+      print(productsId);
+      print('comments');
+      print(res.data);
+      comments = res.data;
+      print('comments2');
+      print(comments);
+
+
+
+
+
+
+
+    } catch (e) {
+      print(e);
+    }
+    return comments;
+  }
+  Future<List>getColors({int productsId}) async {
+
+
+    try {
+      this.productsId=productsId;
+      //print('userToken');
+      //print(userToken);
+      final value = userToken;
+      final res = await _dio.get(
+        'http://secommerce-001-site1.etempurl.com/api/Colors/$productsId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $value',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+      print('productsId');
+      print(productsId);
+      print(this.productsId);
+      print('colors');
+      print(res.data['colors'][0]['name']);
+
+      colors = res.data['colors'];
+      print('colors2');
+      print(colors[0]['name']);
+
+
+
+
+
+
+
+    } catch (e) {
+      print(e);
+    }
+    return colors;
+  }
+  Future<List>getSizes({int productsId}) async {
+
+
+    try {
+      this.productsId=productsId;
+      //print('userToken');
+      //print(userToken);
+      final value = userToken;
+      final res = await _dio.get(
+        'http://secommerce-001-site1.etempurl.com/api/sizes/$productsId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $value',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      print('sizes');
+      print(res.data['sizes'][0]['name']);
+      sizes = res.data['sizes'];
+      print('sizes2');
+      print(sizes[0]['name']);
+
+
+
+
+
+
+
+    } catch (e) {
+      print(e);
+    }
+    return colors;
+  }
+  Future PostComments(int productsId,String content) async {
+
+
+    try {
+      //print('userToken');
+      //print(userToken);
+      this.productsId=productsId;
+      final value = userToken;
+      final res = await _dio.post(
+        'http://secommerce-001-site1.etempurl.com/api/Comments?productId=$productsId &content=$content',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $value',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      print('comments');
+      print(res.data);
+      comments = res.data;
+      print('comments2');
+      print(comments);
+
+
+
+
+
+
+
+    } catch (e) {
+      print(e);
+    }
+
+  }
+  Future PostEvaluations(int productsId,double degree) async {
+
+    print('PostEvaluations');
+    try {
+      //print('userToken');
+      //print(userToken);
+      this.productsId=productsId;
+      final value = userToken;
+      final res = await _dio.post(
+        'http://secommerce-001-site1.etempurl.com/api/Evaluations?degree=$degree&productId=$productsId',
+        options: Options(
+          headers: {
+            'Authorization': 'Bearer $value',
+            'Content-Type': 'application/json',
+          },
+        ),
+      );
+
+      print('PostEvaluations2');
+
+
+
+
+
+
+
+
+    } catch (e) {
+      print(e);
+    }
+
+  }
+
   //الدالة الخاصة بإزالة اصناف الي االسلة
   //يتم تمرير رقم الصنف الي الدالة لإزالته الي السلة
   removeCartItem(int productid) async {
 
     var product_name;
     try {
-      print('userToken');
-      print(userToken);
+      //print('userToken');
+      //print(userToken);
       final value = userToken;
       final res = await _dio.delete(
-        'http://secondapi22-001-site1.atempurl.com/api/Carts/remove-product/$productid',
+        'http://secommerce-001-site1.etempurl.com/api/Carts/remove-product/$productid',
         options: Options(
           headers: {
             'Authorization': 'Bearer $value',
@@ -189,11 +407,11 @@ class AppCubit extends Cubit<AppStates>
 
 
     try {
-      print('userToken');
-      print(userToken);
+      //print('userToken');
+      //print(userToken);
       final value = userToken;
       final res = await _dio.post(
-        'http://secondapi22-001-site1.atempurl.com/api/Orders?cartId=$Cartid&address=$address',
+        'http://secommerce-001-site1.etempurl.com/api/Orders?cartId=$Cartid&address=$address',
         options: Options(
           headers: {
             'Authorization': 'Bearer $value',
@@ -279,7 +497,7 @@ print(categoryId);
 
       print(value.data.toString());
     }).catchError((error) {
-      print(error.toString());
+      //print(error.toString());
       emit(AppErrorState(error.toString()));
     });
 
@@ -295,11 +513,11 @@ print(categoryId);
 if (userToken!=null)
   {
 
-    print('userToken2');
-    print(userToken);
+    //print('userToken2');
+
 
  _dio.get(
-      'http://secondapi22-001-site1.atempurl.com/api/Carts/get-cart/',
+      'http://secommerce-001-site1.etempurl.com/api/Carts/get-cart/',
       options: Options(
         headers: {
           'Authorization': 'Bearer $value',
@@ -313,8 +531,8 @@ if (userToken!=null)
 
 
         .then((value) {
-      print('value.data');
-      print(value.data);
+     // print('value.data');
+     // print(value.data);
 
       carts = Cart.fromJson(value.data);
       /*
@@ -328,8 +546,8 @@ if (userToken!=null)
 
       print(value.data.toString());
     }).catchError((error) {
-      print('error.toString()');
-      print(error.toString());
+     // print('error.toString()');
+      //print(error.toString());
       emit(AppErrorState(error.toString()));
     });
   }else{

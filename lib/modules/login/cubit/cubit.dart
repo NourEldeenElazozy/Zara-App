@@ -51,8 +51,8 @@ class LoginCubit extends Cubit<LoginStates>
         userToken=value.data['token'];
         prefs.setString('token', userToken);
         userToken= prefs.getString('token');
-        print(('tokenn'));
-        print(userToken);
+        //print(('tokenn'));
+        //print(userToken);
       } else
       {
         emit(LoginErrorState(userModel.message));
@@ -60,7 +60,7 @@ class LoginCubit extends Cubit<LoginStates>
     }).catchError((error)
     {
 
-      print(error.toString());
+      //print(error.toString());
       emit(LoginErrorState(error.toString()));
     });
   }

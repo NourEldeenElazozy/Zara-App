@@ -7,6 +7,7 @@ import 'package:salla/modules/login/cubit/states.dart';
 import 'package:salla/modules/register/cubit/states.dart';
 import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/network/repository.dart';
+
 import 'package:shared_preferences/shared_preferences.dart';
 
 class RegisterCubit extends Cubit<RegisterStates>
@@ -43,10 +44,11 @@ print(value.data);
       if(userModel.status)
       {
         emit(RegisterSuccessState(userModel));
+
         SharedPreferences prefs = await SharedPreferences.getInstance();
         prefs.setString('username', username);
         userToken = prefs.getString('username');
-        print(userToken);
+        //print(userToken);
         print(value.data);
       } else
       {
@@ -55,7 +57,7 @@ print(value.data);
       }
     }).catchError((error)
     {
-      print(error.toString());
+      //print(error.toString());
 
       emit(RegisterErrorState(error.toString()));
 

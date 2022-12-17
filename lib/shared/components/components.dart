@@ -66,10 +66,11 @@ Widget defaultButton({
   @required String text,
 }) =>
     Container(
+
       height: 40.0,
       width: double.infinity,
       decoration: BoxDecoration(
-        color: defaultColor,
+        color: Color.fromRGBO(134, 58, 111, 1.0),
         borderRadius: BorderRadius.circular(
           3.0,
         ),

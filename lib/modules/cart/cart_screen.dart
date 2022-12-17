@@ -81,7 +81,7 @@ class _CartScreenState extends State<CartScreen> {
                                     ),
                                     image: DecorationImage(
                                       image: NetworkImage(
-                                        'http://secondapi22-001-site1.atempurl.com/img/${cartsmodel.productsCarts[index].imageUrl}',
+                                        'http://secommerce-001-site1.etempurl.com/img/${cartsmodel.productsCarts[index].imageUrl}',
                                       ),
                                       fit: BoxFit.cover,
                                     ),

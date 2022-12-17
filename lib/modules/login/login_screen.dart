@@ -16,9 +16,12 @@ import 'package:salla/shared/styles/styles.dart';
 class LoginScreen extends StatefulWidget {
   @override
   _LoginScreenState createState() => _LoginScreenState();
+
+
 }
 
 class _LoginScreenState extends State<LoginScreen> {
+
   bool _isObscure = true;
   var emailController = TextEditingController();
 
@@ -28,11 +31,13 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
+
+
     return Directionality(
       textDirection: AppCubit.get(context).appDirection,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: AppBar(backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),),
+        appBar: AppBar(backgroundColor: Color.fromRGBO(134, 58, 111, 1.0),),
         body: BlocProvider(
           create: (BuildContext context) => di<LoginCubit>(),
           child: BlocConsumer<LoginCubit, LoginStates>(
@@ -68,7 +73,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         children: [
                           Image(
                             image: AssetImage('assets/images/logo.png'),
-                            height: 180.0,
+                            height: 220.0,
 
                           ),
                           Text(

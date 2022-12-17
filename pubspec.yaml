@@ -39,12 +39,20 @@ dependencies:
   carousel_slider: ^3.0.0
   http: ^0.12.1
 
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_launcher_icons: ^0.8.0
   flutter_native_splash: ^0.1.9
   flutter_launcher_name: ^0.0.1
+  flutter_rating_bar: ^3.2.0+1
+  swipe: ^0.0.1
+  firebase_core: ^0.7.0
+  firebase_auth: ^0.20.1
+  firebase_messaging: any
+
+
 
 
 flutter_icons:

@@ -54,7 +54,7 @@ print(value.data);
 
       print(value.data.toString());
     }).catchError((error) {
-      print(error.toString());
+      //print(error.toString());
       emit(SingleCategoryErrorState(error.toString()));
     });
   }

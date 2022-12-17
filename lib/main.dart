@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:salla/modules/home/home_screen.dart';
 import 'package:salla/modules/login/login_screen.dart';
+import 'package:salla/modules/register/register_screen.dart';
 import 'package:salla/modules/select_language/select_language_screen.dart';
 import 'package:salla/shared/app_cubit/cubit.dart';
 import 'package:salla/shared/app_cubit/states.dart';
@@ -9,6 +11,7 @@ import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/di/di.dart';
 import 'package:salla/shared/network/remote/dio_helper.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import 'layout/home_layout.dart';
 import 'modules/search_screen.dart';
@@ -16,7 +19,7 @@ import 'modules/search_screen.dart';
 void main() async
 {
   WidgetsFlutterBinding.ensureInitialized();
-
+  await Firebase.initializeApp();
   await init();
 
   appLanguage = await getAppLanguage();
@@ -24,8 +27,8 @@ void main() async
   userToken= prefs.getString('token');
 
 
-  print('userToken-main');
-  print(userToken);
+  //print('userToken-main');
+  //print(userToken);
   String translation = await getTranslationFile(appLanguage);
 
   Widget start;

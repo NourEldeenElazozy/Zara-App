@@ -13,21 +13,23 @@ import 'package:salla/shared/styles/styles.dart';
 class HomeLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    print(userToken);
+    //print(userToken);
   AppCubit.get(context).getCartData();
     return BlocConsumer<AppCubit, AppStates>(
       listener: (context, state) {},
       builder: (context, state) {
         AppCubit.get(context).getCartData();
         return Scaffold(
+
           appBar: AppBar(
-            backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+            backgroundColor:
+              Color.fromRGBO(176, 14, 105, 0.9254901960784314),
             title: Row(
               children: [
                 Center(
                   child: Center(
                     child: Text(
-                      'ZARA',
+                      'P I N K',
                       style: TextStyle(
                         color:
                             Color.fromRGBO(255, 255, 255, 0.9254901960784314),
@@ -55,7 +57,7 @@ class HomeLayout extends StatelessWidget {
           body: AppCubit.get(context)
               .bottomWidgets[AppCubit.get(context).currentIndex],
           bottomNavigationBar: BottomNavigationBar(
-            fixedColor: Color.fromRGBO(3, 64, 129, 1.0),
+            fixedColor: Color.fromRGBO(65, 59, 59, 1.0),
             onTap: (index) {
               AppCubit.get(context).changeBottomIndex(index);
             },
@@ -65,15 +67,15 @@ class HomeLayout extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: Icon(
                   IconBroken.Home,
-                  color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                  color: Color.fromRGBO(255, 20, 125, 1.0),
                 ),
                 label: appLang(context).home,
-                backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                backgroundColor: Color.fromRGBO(255, 20, 125, 1.0),
               ),
               BottomNavigationBarItem(
                 icon: Icon(
                   IconBroken.Category,
-                  color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                  color: Color.fromRGBO(255, 20, 125, 1.0),
                 ),
                 label: appLang(context).categories,
               ),
@@ -83,13 +85,13 @@ class HomeLayout extends StatelessWidget {
                   children: [
                     Icon(
                       IconBroken.Bag,
-                      color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                      color: Color.fromRGBO(255, 20, 125, 1.0),
                     ),
                     /* if(state is! AppLoadingState && AppCubit.get(context).cartProductsNumber != 0)*/
                     Container(
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                        color:Colors.black,
                       ),
                       padding: EdgeInsets.all(
                         3.0,
@@ -108,7 +110,7 @@ class HomeLayout extends StatelessWidget {
               BottomNavigationBarItem(
                 icon: Icon(
                   IconBroken.Setting,
-                  color: Color.fromRGBO(2, 37, 73, 0.9254901960784314),
+                  color: Color.fromRGBO(255, 20, 125, 1.0),
                 ),
                 label: appLang(context).settings,
               ),

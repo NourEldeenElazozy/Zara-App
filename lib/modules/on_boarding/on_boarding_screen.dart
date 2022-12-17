@@ -36,17 +36,17 @@ class _OnBoardScreenState extends State<OnBoardScreen>
     list =
     [
       BoardModel(
-        image: 'assets/images/logo.jpg',
+        image: 'assets/images/logo.png',
         title: appLang(context).title1,
         body: appLang(context).body1,
       ),
       BoardModel(
-        image: 'assets/images/logo.jpg',
+        image: 'assets/images/logo.png',
         title: appLang(context).title2,
         body: appLang(context).body2,
       ),
       BoardModel(
-        image: 'assets/images/logo.jpg',
+        image: 'assets/images/logo.png',
         title: appLang(context).title3,
         body: appLang(context).body3,
       ),
@@ -70,8 +70,16 @@ class _OnBoardScreenState extends State<OnBoardScreen>
     return Directionality(
       textDirection: AppCubit.get(context).appDirection,
       child: Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(  backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314)),
+        backgroundColor: Colors.pinkAccent,
+        appBar: AppBar(
+            title: Center(
+              child: Text('P I N K  - S H O P',style: TextStyle(
+                fontSize: 24.0,
+                color: Colors.pink,
+              ),),
+            ),
+            backgroundColor: Color.fromRGBO(
+            255, 255, 255, 1.0)),
         body: Column(
           children: <Widget>
           [
@@ -103,13 +111,16 @@ class _OnBoardScreenState extends State<OnBoardScreen>
                         list[i].title,
                         style: TextStyle(
                           fontSize: 24.0,
-                          color: defaultColor,
+                          color: Colors.white,
                         ),
                       ),
                       SizedBox(height: 15.0),
                       Text(
                         list[i].body,
-                        style: black14bold(),
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: Colors.white,
+                        ),
                       ),
                     ],
                   ),
@@ -125,7 +136,7 @@ class _OnBoardScreenState extends State<OnBoardScreen>
                     controller: controller,
                     effect: ExpandingDotsEffect(
                       dotColor: Colors.grey,
-                      activeDotColor: defaultColor,
+                      activeDotColor: Colors.white30,
                       dotHeight: 10,
                       expansionFactor: 4,
                       dotWidth: 10,
@@ -134,6 +145,7 @@ class _OnBoardScreenState extends State<OnBoardScreen>
                     count: list.length,
                   ),
                   FloatingActionButton(
+
                     onPressed: ()
                     {
                       if (isLast)
@@ -147,7 +159,9 @@ class _OnBoardScreenState extends State<OnBoardScreen>
                     },
                     child: Icon(
                       Icons.arrow_forward_ios,
+                      color: Colors.pink,
                     ),
+                    backgroundColor: Colors.white, //<-- SEE HERE
                   ),
                 ],
               ),

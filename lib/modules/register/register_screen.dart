@@ -9,7 +9,7 @@ import 'package:salla/shared/components/constants.dart';
 import 'package:salla/shared/di/di.dart';
 import 'package:salla/shared/styles/icon_broken.dart';
 import 'package:salla/shared/styles/styles.dart';
-
+import 'package:firebase_auth/firebase_auth.dart';
 
 class RegisterScreen extends StatefulWidget {
 
@@ -53,7 +53,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
       },
       builder: (context , state){
         return  Scaffold(
-          appBar: AppBar(backgroundColor: Color.fromRGBO(2, 37, 73, 0.9254901960784314),),
+          appBar: AppBar(backgroundColor: Color.fromRGBO(134, 58, 111, 1.0),),
           body: Form(
             key: formKey,
             child: Center(
@@ -178,8 +178,24 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         height: 20.0,
                       ),
                       defaultButton(
-                        function: () {
+                        function: () async {
+                          FirebaseAuth auth = FirebaseAuth.instance;
+                          await FirebaseAuth.instance.verifyPhoneNumber(
+                            phoneNumber: '+218911081088',
+                            timeout: Duration(seconds: 90),
+                            verificationCompleted: (PhoneAuthCredential credential) {},
+                            verificationFailed: (FirebaseAuthException e) {
+                              setState(() {
+                                print('err');
+                                print(e);
+                              });
+                            },
+                            codeSent: (String verificationId, int resendToken) {},
+                            codeAutoRetrievalTimeout: (String verificationId) {},
+                          ).then((value) => print('done'));
+
                           if (formKey.currentState.validate()) {
+
                             RegisterCubit.get(context).Register(
                               username: userNameController.text,
                               password: passwordController.text,

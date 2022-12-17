@@ -99,7 +99,7 @@ class _SearchScreenState extends State<SearchScreen> {
                              ),
                              image: DecorationImage(
                                image: NetworkImage(
-                                 'http://secondapi22-001-site1.atempurl.com/img/${searchModel[index].imageUrl}',
+                                 'http://secommerce-001-site1.etempurl.com/img/${searchModel[index].imageUrl}',
                                ),
                                fit: BoxFit.cover,
                              ),

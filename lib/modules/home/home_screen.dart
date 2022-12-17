@@ -21,9 +21,14 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../item_screen.dart';
 
-class HomeScreen extends StatelessWidget {
-  String productsName='T';
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
 
+class _HomeScreenState extends State<HomeScreen> {
+
+  String productsName='T';
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +39,6 @@ class HomeScreen extends StatelessWidget {
 
         var categories = AppCubit.get(context).categoriesModel2;
         var productsName = AppCubit.get(context).searchData(this.productsName);
-
 
 
 
@@ -129,10 +133,6 @@ class HomeScreen extends StatelessWidget {
     onTap: (){
       AppCubit.get(context).categoryId=model.id;
       AppCubit.get(context).getCategoriesItems();
-
-
-
-
       navigateTo(context, SingleCategoryScreen2(title: model.name),);
     },
     child: Container(
@@ -142,7 +142,7 @@ class HomeScreen extends StatelessWidget {
         children: [
           Image(
             image: NetworkImage(
-                'http://secondapi22-001-site1.atempurl.com/img/${model.imageUrl}',
+                'http://secommerce-001-site1.etempurl.com/img/${model.imageUrl}',
             ),
             fit: BoxFit.cover,
             height: 90.0,
@@ -219,7 +219,7 @@ class HomeScreen extends StatelessWidget {
                       child: Image(
                         image: NetworkImage(
 
-                          'http://secondapi22-001-site1.atempurl.com/img/${model.imageUrl}',
+                          'http://secommerce-001-site1.etempurl.com/img/${model.imageUrl}',
                         ),
                         //fit: BoxFit.cover,
                         height: 250.0,

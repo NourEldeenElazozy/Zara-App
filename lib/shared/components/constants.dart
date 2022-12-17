@@ -9,6 +9,7 @@ AppLanguageModel appLang(context) => AppCubit.get(context).languageModel;
 dynamic token = '';
 String appLanguage = 'ar';
 
+int current =0;
 String userToken = '';
 //String userToken2 = '';
 
